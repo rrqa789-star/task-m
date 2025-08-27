@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Attack Mode 2.0</title>
+    <title>20-Day Job Hunt Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,8 +14,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #2a5298, #1c3f6e);
-            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,531 +29,696 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
         }
         
         h1 {
-            font-size: 2.5rem;
+            color: #4a5568;
             margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #4ecdc4;
+            font-size: 2.5rem;
         }
         
         .subtitle {
+            color: #667eea;
             font-size: 1.2rem;
-            color: #ff6b6b;
             margin-bottom: 20px;
         }
         
-        .system-message {
-            background: rgba(78, 205, 196, 0.1);
-            border-left: 4px solid #4ecdc4;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .section {
-            background: rgba(25, 25, 35, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff6b6b;
-            color: #ff6b6b;
-        }
-        
-        .goal {
-            margin-bottom: 25px;
-        }
-        
-        .goal-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .goal-title i {
-            margin-right: 10px;
-            color: #4ecdc4;
-        }
-        
-        .days-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        
-        .day {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        
-        .day-name {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #4ecdc4;
-        }
-        
-        .task {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .task input[type="checkbox"] {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-        
-        .reading-list {
-            list-style-type: none;
-        }
-        
-        .reading-list li {
-            padding: 10px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .reading-list li i {
-            margin-right: 10px;
-            color: #ff6b6b;
-        }
-        
-        .visualization {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .item:hover {
-            transform: translateY(-5px);
-            background: rgba(78, 205, 196, 0.2);
-        }
-        
-        .item i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #ff6b6b;
-        }
-        
-        .key-shortcuts {
-            margin-top: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-        }
-        
-        .key {
-            display: inline-block;
-            background: #4ecdc4;
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin: 0 5px;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #4ecdc4;
-            font-size: 0.9rem;
-        }
-        
-        .motivation {
-            font-style: italic;
-            margin: 15px 0;
-            text-align: center;
-            color: #ff6b6b;
-        }
-        
-        .module {
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .module-title {
-            font-size: 1.2rem;
-            color: #4ecdc4;
-            margin-bottom: 10px;
-        }
-        
-        .anchor-section {
-            background: rgba(78, 205, 196, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        .recovery-section {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        textarea, input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #4ecdc4;
-            border-radius: 4px;
-            color: white;
-        }
-        
-        button {
-            background: #ff6b6b;
+        .reset-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e53e3e;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        button:hover {
-            background: #ff5252;
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #c53030;
+        }
+        
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .progress-bar {
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            margin: 10px 0;
+            height: 20px;
+            background: #edf2f7;
+            border-radius: 10px;
             overflow: hidden;
+            margin: 10px 0;
         }
         
         .progress {
             height: 100%;
-            background: #4ecdc4;
-            border-radius: 5px;
+            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
             width: 0%;
-            transition: width 0.5s;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        
+        .tasks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .task-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .task-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .task-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .task-description {
+            color: #718096;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .task-check {
+            display: flex;
+            align-items: center;
+        }
+        
+        .complete-day {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .complete-btn {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 15px;
+        }
+        
+        .complete-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .complete-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .calendar {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .day-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            background: #edf2f7;
+        }
+        
+        .day-box.current {
+            background: #667eea;
+            color: white;
+        }
+        
+        .day-box.completed {
+            background: #48bb78;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        .motivation {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .motivation p {
+            font-style: italic;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .modal-confirm {
+            background: #e53e3e;
+            color: white;
+        }
+        
+        .modal-cancel {
+            background: #a0aec0;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .tasks-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .reset-btn {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Job Attack Mode 2.0</h1>
-            <div class="subtitle">BUILD SYSTEM • STAY CONSISTENT • USE FEEDBACK • GET THE JOB</div>
+            <h1>20-Day Job Hunt Challenge</h1>
+            <p class="subtitle">Your daily plan to land a job in 20 days</p>
+            <button class="reset-btn" id="reset-button">
+                <i class="fas fa-redo"></i> Reset Progress
+            </button>
             
-            <div class="system-message">
-                <p>LOGICAL IRADA KA SLAVE BANO - FOLLOW GOAL, NOT MOOD</p>
-                <p>FAILURES = FEEDBACK, NOT EXCUSE • GROWTH MINDSET RAKHO</p>
-            </div>
-            
-            <div class="motivation">
-                "Job seeking is a short-term goal. Build a system, not just motivation." - Attack Mode 2.0
+            <div class="progress-container">
+                <h2>Your Progress</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="progress-percent">0%</span>
+                    <span id="days-left">20 days remaining</span>
+                </div>
             </div>
         </header>
         
-        <div class="main-content">
-            <div class="section">
-                <h2 class="section-title">Weekly Job Attack Plan</h2>
-                
-                <div class="module">
-                    <div class="module-title">Module 1: Built System</div>
-                    <p>Set job seeking as short-term goal • Create system instead of relying only on motivation</p>
-                </div>
-                
-                <div class="goal">
-                    <h3 class="goal-title"><i class="fas fa-briefcase"></i> JOB APPLICATIONS</h3>
-                    <div class="days-container">
-                        <div class="day">
-                            <div class="day-name">Monday</div>
-                            <div class="task">
-                                <input type="checkbox" id="apply-monday">
-                                <label for="apply-monday">Apply to 5 jobs</label>
-                            </div>
-                            <div class="task">
-                                <input type="checkbox" id="follow-monday">
-                                <label for="follow-monday">Follow up on previous applications</label>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <div class="day-name">Wednesday</div>
-                            <div class="task">
-                                <input type="checkbox" id="apply-wednesday">
-                                <label for="apply-wednesday">Apply to 5 jobs</label>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <div class="day-name">Friday</div>
-                            <div class="task">
-                                <input type="checkbox" id="apply-friday">
-                                <label for="apply-friday">Apply to 5 jobs</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="goal">
-                    <h3 class="goal-title"><i class="fas fa-code"></i> SKILL DEVELOPMENT</h3>
-                    <div class="days-container">
-                        <div class="day">
-                            <div class="day-name">Tuesday</div>
-                            <div class="task">
-                                <input type="checkbox" id="skill-tuesday">
-                                <label for="skill-tuesday">2 hours coding practice</label>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <div class="day-name">Thursday</div>
-                            <div class="task">
-                                <input type="checkbox" id="skill-thursday">
-                                <label for="skill-thursday">2 hours coding practice</label>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <div class="day-name">Saturday</div>
-                            <div class="task">
-                                <input type="checkbox" id="skill-saturday">
-                                <label for="skill-saturday">Learn new technology</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="goal">
-                    <h3 class="goal-title"><i class="fas fa-interview"></i> INTERVIEW PREP</h3>
-                    <div class="days-container">
-                        <div class="day">
-                            <div class="day-name">Daily</div>
-                            <div class="task">
-                                <input type="checkbox" id="prep-daily">
-                                <label for="prep-daily">30 min behavioral questions</label>
-                            </div>
-                            <div class="task">
-                                <input type="checkbox" id="tech-daily">
-                                <label for="tech-daily">30 min technical questions</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="anchor-section">
-                    <h3 class="goal-title"><i class="fas fa-anchor"></i> MY ANCHOR</h3>
-                    <p>What keeps you connected to your goal (emotionally + logically)?</p>
-                    <input type="text" id="anchor-input" placeholder="E.g., My family's future, Financial freedom...">
-                    <button onclick="setAnchor()">Set Anchor</button>
-                    <div id="anchor-display"></div>
-                </div>
+        <div class="motivation">
+            <p>"The only way to do great work is to love what you do." - Steve Jobs</p>
+            <p>Stay consistent and you'll land your dream job!</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <i class="fas fa-paper-plane"></i>
+                <div class="stat-number" id="applications-count">0</div>
+                <p>Applications Sent</p>
             </div>
-            
-            <div class="section">
-                <h2 class="section-title">Attack Mode Principles</h2>
-                
-                <div class="module">
-                    <div class="module-title">Module 2: Logical Irada</div>
-                    <ul class="reading-list">
-                        <li><i class="fas fa-flag"></i> Follow goal, not mood</li>
-                        <li><i class="fas fa-hand-holding-heart"></i> Work for yourself + loved ones</li>
-                        <li><i class="fas fa-road"></i> Process matters more than destination</li>
-                        <li><i class="fas fa-tools"></i> Protect your system → repair, not blame</li>
-                        <li><i class="fas fa-sync-alt"></i> Effort/system change = results change</li>
-                    </ul>
-                </div>
-                
-                <div class="module">
-                    <div class="module-title">Module 3: Stronger Motivation</div>
-                    <ul class="reading-list">
-                        <li><i class="fas fa-brain"></i> Work system ke hisaab se, emotions ke nahi</li>
-                        <li><i class="fas fa-calendar-check"></i> Consistency = Mood-independent work</li>
-                        <li><i class="fas fa-hourglass-end"></i> Deadline first → planning later</li>
-                    </ul>
-                </div>
-                
-                <div class="recovery-section">
-                    <h3 class="goal-title"><i class="fas fa-first-aid"></i> Module 4: Recovery & Self-Correction</h3>
-                    <p>Mess up allowed hai, stuck rehna allowed nahi</p>
-                    
-                    <div class="task">
-                        <input type="checkbox" id="no-guilt">
-                        <label for="no-guilt">No guilt - Sherlock Holmes mode</label>
-                    </div>
-                    
-                    <p>Analyze what happened:</p>
-                    <textarea id="problem-analysis" rows="3" placeholder="What happened? Why did it happen?"></textarea>
-                    
-                    <p>Create solution script:</p>
-                    <textarea id="solution-script" rows="3" placeholder="Next time I will..."></textarea>
-                    
-                    <button onclick="saveRecoveryPlan()">Save Recovery Plan</button>
-                </div>
-                
-                <h2 class="section-title" style="margin-top: 30px;">Job Visualization Board</h2>
-                <p>Things to achieve in your career:</p>
-                
-                <div class="visualization">
-                    <div class="item">
-                        <i class="fas fa-briefcase"></i>
-                        <p>Dream Job</p>
-                    </div>
-                    <div class="item">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <p>Target Salary</p>
-                    </div>
-                    <div class="item">
-                        <i class="fas fa-laptop-code"></i>
-                        <p>Tech Skills</p>
-                    </div>
-                    <div class="item">
-                        <i class="fas fa-network-wired"></i>
-                        <p>Professional Network</p>
-                    </div>
-                    <div class="item">
-                        <i class="fas fa-chart-line"></i>
-                        <p>Career Growth</p>
-                    </div>
-                    <div class="item">
-                        <i class="fas fa-home"></i>
-                        <p>Financial Security</p>
-                    </div>
-                </div>
-                
-                <div class="progress-bar">
-                    <div class="progress" id="job-progress"></div>
-                </div>
-                <p>Job Attack Progress: <span id="progress-text">0%</span></p>
+            <div class="stat-box">
+                <i class="fas fa-handshake"></i>
+                <div class="stat-number" id="interviews-count">0</div>
+                <p>Interviews</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-users"></i>
+                <div class="stat-number" id="networking-count">0</div>
+                <p>Networking Contacts</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-brain"></i>
+                <div class="stat-number" id="skills-count">0</div>
+                <p>Skills Improved</p>
             </div>
         </div>
         
-        <div class="key-shortcuts">
-            <p>Press <span class="key">Space</span> for AI assistance, <span class="key">/</span> for commands</p>
+        <div class="tasks-container">
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-icon" style="background: #ebf8ff; color: #3182ce;">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="task-title">Research & Apply</div>
+                </div>
+                <p class="task-description">Find 5 suitable job openings and apply with tailored applications</p>
+                <div class="task-check">
+                    <input type="checkbox" id="task-1" class="daily-task">
+                    <label for="task-1">Mark as completed</label>
+                </div>
+            </div>
+            
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-icon" style="background: #e6fffa; color: #319795;">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="task-title">Network Outreach</div>
+                </div>
+                <p class="task-description">Connect with 3 professionals in your target industry/companies</p>
+                <div class="task-check">
+                    <input type="checkbox" id="task-2" class="daily-task">
+                    <label for="task-2">Mark as completed</label>
+                </div>
+            </div>
+            
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-icon" style="background: #fff5f5; color: #e53e3e;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="task-title">Skill Development</div>
+                </div>
+                <p class="task-description">Spend 45 minutes learning a relevant skill or improving existing ones</p>
+                <div class="task-check">
+                    <input type="checkbox" id="task-3" class="daily-task">
+                    <label for="task-3">Mark as completed</label>
+                </div>
+            </div>
+            
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-icon" style="background: #faf5ff; color: #805ad5;">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="task-title">Follow Up</div>
+                </div>
+                <p class="task-description">Follow up on 2 previous applications or interviews</p>
+                <div class="task-check">
+                    <input type="checkbox" id="task-4" class="daily-task">
+                    <label for="task-4">Mark as completed</label>
+                </div>
+            </div>
+            
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-icon" style="background: #fffaf0; color: #dd6b20;">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="task-title">Interview Practice</div>
+                </div>
+                <p class="task-description">Practice answering 5 common interview questions for your field</p>
+                <div class="task-check">
+                    <input type="checkbox" id="task-5" class="daily-task">
+                    <label for="task-5">Mark as completed</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="complete-day">
+            <h2>Complete Day <span id="current-day-number">1</span></h2>
+            <p>Mark the day as complete after finishing all 5 tasks</p>
+            <button class="complete-btn" id="complete-day">Complete Day</button>
+        </div>
+        
+        <div class="calendar">
+            <h2>20-Day Progress Calendar</h2>
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Day boxes will be generated here -->
+            </div>
         </div>
         
         <footer>
-            <p>Job Attack Mode 2.0 © 2025 | Failures = Feedback, Not Excuse</p>
+            <p>Stay focused. You've got this! The right job is waiting for you.</p>
         </footer>
     </div>
 
+    <!-- Reset Confirmation Modal -->
+    <div class="modal" id="reset-modal">
+        <div class="modal-content">
+            <h2>Reset Progress</h2>
+            <p>Are you sure you want to reset all your progress? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-confirm" id="reset-confirm">Yes, Reset</button>
+                <button class="modal-btn modal-cancel" id="reset-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('keydown', function(event) {
-            if (event.code === 'Space') {
-                event.preventDefault();
-                alert('AI Assistant activated! How can I help with your job search?');
-            } else if (event.key === '/') {
-                event.preventDefault();
-                alert('Command palette opened!');
-            }
-        });
-        
-        // Update progress bar
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const progressBar = document.getElementById('job-progress');
-        const progressText = document.getElementById('progress-text');
-        
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    this.parentElement.style.textDecoration = 'line-through';
-                    this.parentElement.style.color = '#6c757d';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize data
+            let completedDays = JSON.parse(localStorage.getItem('jobHuntCompletedDays')) || {};
+            let completedTasks = JSON.parse(localStorage.getItem('jobHuntCompletedTasks')) || {};
+            let stats = JSON.parse(localStorage.getItem('jobHuntStats')) || {
+                applications: 0,
+                interviews: 0,
+                networking: 0,
+                skills: 0
+            };
+            
+            // Get current day from localStorage or set to 1
+            let currentDay = parseInt(localStorage.getItem('jobHuntCurrentDay')) || 1;
+            
+            // Initialize UI
+            updateUI();
+            
+            // Add event listeners to daily tasks
+            document.querySelectorAll('.daily-task').forEach((checkbox, index) => {
+                // Set initial state
+                const taskId = `day-${currentDay}-task-${index+1}`;
+                if (completedTasks[taskId]) {
+                    checkbox.checked = true;
+                }
+                
+                checkbox.addEventListener('change', function() {
+                    const taskId = `day-${currentDay}-task-${index+1}`;
                     
-                    // Update progress
-                    const allChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
-                    const total = document.querySelectorAll('input[type="checkbox"]').length;
-                    const progress = Math.round((allChecked / total) * 100);
-                    
-                    progressBar.style.width = progress + '%';
-                    progressText.textContent = progress + '%';
-                    
-                    if (allChecked === total) {
-                        alert('Congratulations! You have completed all your job attack tasks for the week!');
+                    if (this.checked) {
+                        completedTasks[taskId] = true;
+                        
+                        // Update stats based on which task was completed
+                        switch(index) {
+                            case 0: // Research & Apply
+                                stats.applications += 5;
+                                break;
+                            case 1: // Network Outreach
+                                stats.networking += 3;
+                                break;
+                            case 2: // Skill Development
+                                stats.skills += 1;
+                                break;
+                            case 3: // Follow Up
+                                stats.applications += 2;
+                                break;
+                            case 4: // Interview Practice
+                                stats.interviews += 1;
+                                break;
+                        }
+                    } else {
+                        delete completedTasks[taskId];
+                        
+                        // Update stats based on which task was unchecked
+                        switch(index) {
+                            case 0: // Research & Apply
+                                stats.applications = Math.max(0, stats.applications - 5);
+                                break;
+                            case 1: // Network Outreach
+                                stats.networking = Math.max(0, stats.networking - 3);
+                                break;
+                            case 2: // Skill Development
+                                stats.skills = Math.max(0, stats.skills - 1);
+                                break;
+                            case 3: // Follow Up
+                                stats.applications = Math.max(0, stats.applications - 2);
+                                break;
+                            case 4: // Interview Practice
+                                stats.interviews = Math.max(0, stats.interviews - 1);
+                                break;
+                        }
                     }
+                    
+                    updateStats();
+                    saveData();
+                    updateCompleteButtonState();
+                });
+            });
+            
+            // Complete day functionality
+            document.getElementById('complete-day').addEventListener('click', function() {
+                // Check if all tasks are completed
+                let allCompleted = true;
+                document.querySelectorAll('.daily-task').forEach(checkbox => {
+                    if (!checkbox.checked) allCompleted = false;
+                });
+                
+                if (!allCompleted) {
+                    alert('Please complete all tasks before finishing the day!');
+                    return;
+                }
+                
+                // Mark day as completed
+                completedDays[currentDay] = true;
+                
+                // Move to next day
+                currentDay = Math.min(currentDay + 1, 20);
+                
+                // Reset task checkboxes for the new day
+                document.querySelectorAll('.daily-task').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                updateUI();
+                saveData();
+                
+                // Show congratulations message
+                if (currentDay <= 20) {
+                    setTimeout(() => {
+                        alert(`Congratulations on completing Day ${currentDay - 1}! Ready for Day ${currentDay}?`);
+                    }, 500);
                 } else {
-                    this.parentElement.style.textDecoration = 'none';
-                    this.parentElement.style.color = '#fff';
-                    
-                    // Update progress
-                    const allChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
-                    const total = document.querySelectorAll('input[type="checkbox"]').length;
-                    const progress = Math.round((allChecked / total) * 100);
-                    
-                    progressBar.style.width = progress + '%';
-                    progressText.textContent = progress + '%';
+                    setTimeout(() => {
+                        alert('Congratulations! You have completed all 20 days of the job hunt challenge!');
+                    }, 500);
                 }
             });
-        });
-        
-        // Anchor functionality
-        function setAnchor() {
-            const anchorInput = document.getElementById('anchor-input');
-            const anchorDisplay = document.getElementById('anchor-display');
             
-            if (anchorInput.value.trim() !== '') {
-                anchorDisplay.innerHTML = `<p><strong>Your Anchor:</strong> ${anchorInput.value}</p>`;
-                anchorInput.value = '';
+            // Reset functionality
+            document.getElementById('reset-button').addEventListener('click', function() {
+                document.getElementById('reset-modal').style.display = 'flex';
+            });
+            
+            document.getElementById('reset-cancel').addEventListener('click', function() {
+                document.getElementById('reset-modal').style.display = 'none';
+            });
+            
+            document.getElementById('reset-confirm').addEventListener('click', function() {
+                // Clear all data
+                localStorage.removeItem('jobHuntCompletedDays');
+                localStorage.removeItem('jobHuntCompletedTasks');
+                localStorage.removeItem('jobHuntStats');
+                localStorage.removeItem('jobHuntCurrentDay');
                 
-                // Save to localStorage
-                localStorage.setItem('jobAnchor', anchorDisplay.innerHTML);
-            }
-        }
-        
-        // Recovery plan functionality
-        function saveRecoveryPlan() {
-            const problemAnalysis = document.getElementById('problem-analysis');
-            const solutionScript = document.getElementById('solution-script');
+                // Reset variables
+                completedDays = {};
+                completedTasks = {};
+                stats = {
+                    applications: 0,
+                    interviews: 0,
+                    networking: 0,
+                    skills: 0
+                };
+                currentDay = 1;
+                
+                // Uncheck all checkboxes
+                document.querySelectorAll('.daily-task').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Update UI
+                updateUI();
+                
+                // Hide modal
+                document.getElementById('reset-modal').style.display = 'none';
+                
+                // Show confirmation message
+                alert('Progress has been reset. You are now starting from Day 1.');
+            });
             
-            if (problemAnalysis.value.trim() !== '' && solutionScript.value.trim() !== '') {
-                alert('Recovery plan saved! Remember: failures = feedback, not excuse.');
-                problemAnalysis.value = '';
-                solutionScript.value = '';
-            } else {
-                alert('Please fill in both analysis and solution fields.');
+            // Generate calendar view
+            function generateCalendar() {
+                const calendar = document.getElementById('calendar-grid');
+                calendar.innerHTML = '';
+                
+                for (let day = 1; day <= 20; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day-box';
+                    
+                    if (day === currentDay) {
+                        dayElement.classList.add('current');
+                    } else if (completedDays[day]) {
+                        dayElement.classList.add('completed');
+                    }
+                    
+                    dayElement.textContent = day;
+                    calendar.appendChild(dayElement);
+                }
             }
-        }
-        
-        // Load saved anchor on page load
-        window.addEventListener('load', function() {
-            const savedAnchor = localStorage.getItem('jobAnchor');
-            if (savedAnchor) {
-                document.getElementById('anchor-display').innerHTML = savedAnchor;
+            
+            // Calculate and update progress
+            function updateProgress() {
+                const completedCount = Object.keys(completedDays).length;
+                const percent = Math.round((completedCount / 20) * 100);
+                
+                document.getElementById('progress-bar').style.width = `${percent}%`;
+                document.getElementById('progress-percent').textContent = `${percent}%`;
+                document.getElementById('days-left').textContent = `${20 - completedCount} days remaining`;
             }
+            
+            // Update statistics display
+            function updateStats() {
+                document.getElementById('applications-count').textContent = stats.applications;
+                document.getElementById('interviews-count').textContent = stats.interviews;
+                document.getElementById('networking-count').textContent = stats.networking;
+                document.getElementById('skills-count').textContent = stats.skills;
+            }
+            
+            // Update the current day display
+            function updateCurrentDay() {
+                document.getElementById('current-day-number').textContent = currentDay;
+            }
+            
+            // Update the complete button state
+            function updateCompleteButtonState() {
+                let allCompleted = true;
+                document.querySelectorAll('.daily-task').forEach(checkbox => {
+                    if (!checkbox.checked) allCompleted = false;
+                });
+                
+                document.getElementById('complete-day').disabled = !allCompleted;
+            }
+            
+            // Update the entire UI
+            function updateUI() {
+                updateProgress();
+                updateStats();
+                updateCurrentDay();
+                generateCalendar();
+                updateCompleteButtonState();
+            }
+            
+            // Save data to localStorage
+            function saveData() {
+                localStorage.setItem('jobHuntCompletedDays', JSON.stringify(completedDays));
+                localStorage.setItem('jobHuntCompletedTasks', JSON.stringify(completedTasks));
+                localStorage.setItem('jobHuntStats', JSON.stringify(stats));
+                localStorage.setItem('jobHuntCurrentDay', currentDay);
+            }
+            
+            // Initialize the UI
+            updateUI();
         });
     </script>
 </body>
 </html>
+
