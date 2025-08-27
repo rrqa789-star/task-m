@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Attack Mode 2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a5298, #1c3f6e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #4ecdc4;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        .system-message {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 4px solid #4ecdc4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            background: rgba(25, 25, 35, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .goal {
+            margin-bottom: 25px;
+        }
+        
+        .goal-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .goal-title i {
+            margin-right: 10px;
+            color: #4ecdc4;
+        }
+        
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .day {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .day-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+        
+        .task {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .task input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .reading-list {
+            list-style-type: none;
+        }
+        
+        .reading-list li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .reading-list li i {
+            margin-right: 10px;
+            color: #ff6b6b;
+        }
+        
+        .visualization {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .item:hover {
+            transform: translateY(-5px);
+            background: rgba(78, 205, 196, 0.2);
+        }
+        
+        .item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+        
+        .key-shortcuts {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .key {
+            display: inline-block;
+            background: #4ecdc4;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #4ecdc4;
+            font-size: 0.9rem;
+        }
+        
+        .motivation {
+            font-style: italic;
+            margin: 15px 0;
+            text-align: center;
+            color: #ff6b6b;
+        }
+        
+        .module {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .module-title {
+            font-size: 1.2rem;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+        }
+        
+        .anchor-section {
+            background: rgba(78, 205, 196, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .recovery-section {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #4ecdc4;
+            border-radius: 4px;
+            color: white;
+        }
+        
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #ff5252;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #4ecdc4;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Job Attack Mode 2.0</h1>
+            <div class="subtitle">BUILD SYSTEM • STAY CONSISTENT • USE FEEDBACK • GET THE JOB</div>
+            
+            <div class="system-message">
+                <p>LOGICAL IRADA KA SLAVE BANO - FOLLOW GOAL, NOT MOOD</p>
+                <p>FAILURES = FEEDBACK, NOT EXCUSE • GROWTH MINDSET RAKHO</p>
+            </div>
+            
+            <div class="motivation">
+                "Job seeking is a short-term goal. Build a system, not just motivation." - Attack Mode 2.0
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">Weekly Job Attack Plan</h2>
+                
+                <div class="module">
+                    <div class="module-title">Module 1: Built System</div>
+                    <p>Set job seeking as short-term goal • Create system instead of relying only on motivation</p>
+                </div>
+                
+                <div class="goal">
+                    <h3 class="goal-title"><i class="fas fa-briefcase"></i> JOB APPLICATIONS</h3>
+                    <div class="days-container">
+                        <div class="day">
+                            <div class="day-name">Monday</div>
+                            <div class="task">
+                                <input type="checkbox" id="apply-monday">
+                                <label for="apply-monday">Apply to 5 jobs</label>
+                            </div>
+                            <div class="task">
+                                <input type="checkbox" id="follow-monday">
+                                <label for="follow-monday">Follow up on previous applications</label>
+                            </div>
+                        </div>
+                        <div class="day">
+                            <div class="day-name">Wednesday</div>
+                            <div class="task">
+                                <input type="checkbox" id="apply-wednesday">
+                                <label for="apply-wednesday">Apply to 5 jobs</label>
+                            </div>
+                        </div>
+                        <div class="day">
+                            <div class="day-name">Friday</div>
+                            <div class="task">
+                                <input type="checkbox" id="apply-friday">
+                                <label for="apply-friday">Apply to 5 jobs</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="goal">
+                    <h3 class="goal-title"><i class="fas fa-code"></i> SKILL DEVELOPMENT</h3>
+                    <div class="days-container">
+                        <div class="day">
+                            <div class="day-name">Tuesday</div>
+                            <div class="task">
+                                <input type="checkbox" id="skill-tuesday">
+                                <label for="skill-tuesday">2 hours coding practice</label>
+                            </div>
+                        </div>
+                        <div class="day">
+                            <div class="day-name">Thursday</div>
+                            <div class="task">
+                                <input type="checkbox" id="skill-thursday">
+                                <label for="skill-thursday">2 hours coding practice</label>
+                            </div>
+                        </div>
+                        <div class="day">
+                            <div class="day-name">Saturday</div>
+                            <div class="task">
+                                <input type="checkbox" id="skill-saturday">
+                                <label for="skill-saturday">Learn new technology</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="goal">
+                    <h3 class="goal-title"><i class="fas fa-interview"></i> INTERVIEW PREP</h3>
+                    <div class="days-container">
+                        <div class="day">
+                            <div class="day-name">Daily</div>
+                            <div class="task">
+                                <input type="checkbox" id="prep-daily">
+                                <label for="prep-daily">30 min behavioral questions</label>
+                            </div>
+                            <div class="task">
+                                <input type="checkbox" id="tech-daily">
+                                <label for="tech-daily">30 min technical questions</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="anchor-section">
+                    <h3 class="goal-title"><i class="fas fa-anchor"></i> MY ANCHOR</h3>
+                    <p>What keeps you connected to your goal (emotionally + logically)?</p>
+                    <input type="text" id="anchor-input" placeholder="E.g., My family's future, Financial freedom...">
+                    <button onclick="setAnchor()">Set Anchor</button>
+                    <div id="anchor-display"></div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Attack Mode Principles</h2>
+                
+                <div class="module">
+                    <div class="module-title">Module 2: Logical Irada</div>
+                    <ul class="reading-list">
+                        <li><i class="fas fa-flag"></i> Follow goal, not mood</li>
+                        <li><i class="fas fa-hand-holding-heart"></i> Work for yourself + loved ones</li>
+                        <li><i class="fas fa-road"></i> Process matters more than destination</li>
+                        <li><i class="fas fa-tools"></i> Protect your system → repair, not blame</li>
+                        <li><i class="fas fa-sync-alt"></i> Effort/system change = results change</li>
+                    </ul>
+                </div>
+                
+                <div class="module">
+                    <div class="module-title">Module 3: Stronger Motivation</div>
+                    <ul class="reading-list">
+                        <li><i class="fas fa-brain"></i> Work system ke hisaab se, emotions ke nahi</li>
+                        <li><i class="fas fa-calendar-check"></i> Consistency = Mood-independent work</li>
+                        <li><i class="fas fa-hourglass-end"></i> Deadline first → planning later</li>
+                    </ul>
+                </div>
+                
+                <div class="recovery-section">
+                    <h3 class="goal-title"><i class="fas fa-first-aid"></i> Module 4: Recovery & Self-Correction</h3>
+                    <p>Mess up allowed hai, stuck rehna allowed nahi</p>
+                    
+                    <div class="task">
+                        <input type="checkbox" id="no-guilt">
+                        <label for="no-guilt">No guilt - Sherlock Holmes mode</label>
+                    </div>
+                    
+                    <p>Analyze what happened:</p>
+                    <textarea id="problem-analysis" rows="3" placeholder="What happened? Why did it happen?"></textarea>
+                    
+                    <p>Create solution script:</p>
+                    <textarea id="solution-script" rows="3" placeholder="Next time I will..."></textarea>
+                    
+                    <button onclick="saveRecoveryPlan()">Save Recovery Plan</button>
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 30px;">Job Visualization Board</h2>
+                <p>Things to achieve in your career:</p>
+                
+                <div class="visualization">
+                    <div class="item">
+                        <i class="fas fa-briefcase"></i>
+                        <p>Dream Job</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <p>Target Salary</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-laptop-code"></i>
+                        <p>Tech Skills</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-network-wired"></i>
+                        <p>Professional Network</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-chart-line"></i>
+                        <p>Career Growth</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-home"></i>
+                        <p>Financial Security</p>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="job-progress"></div>
+                </div>
+                <p>Job Attack Progress: <span id="progress-text">0%</span></p>
+            </div>
+        </div>
+        
+        <div class="key-shortcuts">
+            <p>Press <span class="key">Space</span> for AI assistance, <span class="key">/</span> for commands</p>
+        </div>
+        
+        <footer>
+            <p>Job Attack Mode 2.0 © 2025 | Failures = Feedback, Not Excuse</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                alert('AI Assistant activated! How can I help with your job search?');
+            } else if (event.key === '/') {
+                event.preventDefault();
+                alert('Command palette opened!');
+            }
+        });
+        
+        // Update progress bar
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const progressBar = document.getElementById('job-progress');
+        const progressText = document.getElementById('progress-text');
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    this.parentElement.style.textDecoration = 'line-through';
+                    this.parentElement.style.color = '#6c757d';
+                    
+                    // Update progress
+                    const allChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                    const total = document.querySelectorAll('input[type="checkbox"]').length;
+                    const progress = Math.round((allChecked / total) * 100);
+                    
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+                    
+                    if (allChecked === total) {
+                        alert('Congratulations! You have completed all your job attack tasks for the week!');
+                    }
+                } else {
+                    this.parentElement.style.textDecoration = 'none';
+                    this.parentElement.style.color = '#fff';
+                    
+                    // Update progress
+                    const allChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                    const total = document.querySelectorAll('input[type="checkbox"]').length;
+                    const progress = Math.round((allChecked / total) * 100);
+                    
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+                }
+            });
+        });
+        
+        // Anchor functionality
+        function setAnchor() {
+            const anchorInput = document.getElementById('anchor-input');
+            const anchorDisplay = document.getElementById('anchor-display');
+            
+            if (anchorInput.value.trim() !== '') {
+                anchorDisplay.innerHTML = `<p><strong>Your Anchor:</strong> ${anchorInput.value}</p>`;
+                anchorInput.value = '';
+                
+                // Save to localStorage
+                localStorage.setItem('jobAnchor', anchorDisplay.innerHTML);
+            }
+        }
+        
+        // Recovery plan functionality
+        function saveRecoveryPlan() {
+            const problemAnalysis = document.getElementById('problem-analysis');
+            const solutionScript = document.getElementById('solution-script');
+            
+            if (problemAnalysis.value.trim() !== '' && solutionScript.value.trim() !== '') {
+                alert('Recovery plan saved! Remember: failures = feedback, not excuse.');
+                problemAnalysis.value = '';
+                solutionScript.value = '';
+            } else {
+                alert('Please fill in both analysis and solution fields.');
+            }
+        }
+        
+        // Load saved anchor on page load
+        window.addEventListener('load', function() {
+            const savedAnchor = localStorage.getItem('jobAnchor');
+            if (savedAnchor) {
+                document.getElementById('anchor-display').innerHTML = savedAnchor;
+            }
+        });
+    </script>
+</body>
+</html>
