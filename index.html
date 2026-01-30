@@ -3,260 +3,1539 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20-Day Job Hunt Challenge</title>
+    <title>New Me - Nature-Inspired Growth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #8b7355;
+            --secondary: #6b5444;
+            --accent: #c9a882;
+            --light: #ffffff;
+            --dark: #3d2f28;
+            --success: #a88968;
+            --warning: #d4a574;
+            --growth: #b89968;
+            --danger: #a0695f;
+            --ocean: #9b8772;
+            --sunset: #d9b99b;
+            --gray: #9e9284;
+            --cream: #f5f0e8;
+            --beige: #e8dfd3;
+            --mocha: #5d4e37;
+            --section-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 8px 32px rgba(61, 47, 40, 0.15);
+            --glass-effect: rgba(255, 255, 255, 0.9);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--beige);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--mocha);
+        }
+        
+        /* Dark Mode */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        }
+        
+        body.dark-mode .growth-tracker,
+        body.dark-mode header,
+        body.dark-mode .section,
+        body.dark-mode .stat-card,
+        body.dark-mode .mood-tracker,
+        body.dark-mode .habit-tracker,
+        body.dark-mode .weekly-summary,
+        body.dark-mode footer,
+        body.dark-mode .modal-content {
+            background: #2d2d2d;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .section-content,
+        body.dark-mode .modal-header h2,
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .section-title,
+        body.dark-mode .stat-label,
+        body.dark-mode #currentMonth {
+            color: var(--accent);
+        }
+        
+        body.dark-mode input,
+        body.dark-mode textarea,
+        body.dark-mode .quick-select {
+            background: #1a1a1a;
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .calendar-day,
+        body.dark-mode .ring,
+        body.dark-mode .goal-item,
+        body.dark-mode .btn-quick,
+        body.dark-mode .habit-item,
+        body.dark-mode .summary-item,
+        body.dark-mode .mood-btn,
+        body.dark-mode .template-card,
+        body.dark-mode .reminder-option,
+        body.dark-mode .tab {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .day-name,
+        body.dark-mode .empty-state {
+            color: #888;
+        }
+        
+        body.dark-mode ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        body.dark-mode ::-webkit-scrollbar-thumb {
+            background: var(--accent);
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8dfd3 50%, #d9ccbd 100%);
+            color: var(--dark);
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
-        header {
-            text-align: center;
+        /* Growth Rings Visualization */
+        .growth-tracker {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 25px;
             margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            position: relative;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            box-shadow: 0 8px 32px rgba(61, 47, 40, 0.1);
+            animation: slideUp 0.6s ease-out 0.1s backwards;
         }
         
-        h1 {
-            color: #4a5568;
-            margin-bottom: 10px;
-            font-size: 2.5rem;
+        .growth-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
-        .subtitle {
-            color: #667eea;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .growth-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
         }
         
-        .reset-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #e53e3e;
+        .streak-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .streak-badge {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
             color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 25px;
             font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         
-        .reset-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            background: #c53030;
+        .total-days {
+            background: var(--cream);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         
-        .progress-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
+        /* Daily Goals */
+        .daily-goals {
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: grid;
+            gap: 15px;
+        }
+        
+        .goal-item {
+            background: var(--cream);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .goal-status {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        
+        .goal-status.completed {
+            color: #52b788;
+        }
+        
+        .goal-status.in-progress {
+            color: var(--warning);
         }
         
         .progress-bar {
-            height: 20px;
-            background: #edf2f7;
+            width: 100%;
+            height: 8px;
+            background: rgba(139, 115, 85, 0.15);
             border-radius: 10px;
             overflow: hidden;
-            margin: 10px 0;
         }
         
-        .progress {
+        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+            background: linear-gradient(to right, var(--primary), var(--accent));
             border-radius: 10px;
             transition: width 0.5s ease;
-            width: 0%;
         }
         
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        /* Weekly Calendar */
+        .weekly-calendar {
             margin-bottom: 30px;
         }
         
-        .stat-box {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin: 10px 0;
-        }
-        
-        .tasks-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .task-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .task-header {
-            display: flex;
-            align-items: center;
+        .weekly-calendar h4 {
+            color: var(--primary);
             margin-bottom: 15px;
-        }
-        
-        .task-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-        
-        .task-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        
-        .task-description {
-            color: #718096;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .task-check {
-            display: flex;
-            align-items: center;
-        }
-        
-        .complete-day {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .complete-btn {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 15px;
-        }
-        
-        .complete-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .complete-btn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .calendar {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
         }
         
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        
+        .calendar-day {
+            background: var(--cream);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .calendar-day:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 47, 40, 0.1);
+        }
+        
+        .calendar-day.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .calendar-day.today {
+            border-color: var(--primary);
+            border-width: 3px;
+        }
+        
+        .day-name {
+            font-size: 0.75rem;
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .calendar-day.active .day-name {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .day-date {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .calendar-day.active .day-date {
+            color: white;
+        }
+        
+        .day-entries {
+            font-size: 0.7rem;
+            margin-top: 5px;
+            color: var(--primary);
+        }
+        
+        .calendar-day.active .day-entries {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Monthly View */
+        .monthly-view {
+            margin-top: 25px;
+        }
+        
+        .monthly-view h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .month-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-month {
+            background: var(--cream);
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-month:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        #currentMonth {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .growth-rings {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
             gap: 10px;
             margin-top: 15px;
         }
         
-        .day-box {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+        .ring {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            background: #edf2f7;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--cream);
+            color: var(--mocha);
+            font-size: 0.85rem;
         }
         
-        .day-box.current {
-            background: #667eea;
+        .ring:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(139, 115, 85, 0.3);
+        }
+        
+        .ring.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
+            border-color: var(--accent);
         }
         
-        .day-box.completed {
-            background: #48bb78;
-            color: white;
+        .ring.today {
+            border-width: 4px;
+            border-color: #ff6b35;
         }
         
-        footer {
+        .ring.future {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        header {
             text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--light);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            box-shadow: 0 8px 32px rgba(61, 47, 40, 0.1);
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #8b7355, #c9a882, #a88968);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: var(--mocha);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 300;
+        }
+        
+        .nature-quote {
+            font-style: italic;
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-quick {
+            background: var(--cream);
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-quick:hover {
+            background: var(--primary);
             color: white;
-            margin-top: 30px;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+        }
+        
+        /* Search Container */
+        .search-container {
+            margin-top: 20px;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        #searchInput {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        #searchResults {
+            max-height: 300px;
+            overflow-y: auto;
+            background: var(--cream);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .search-result-item {
+            padding: 12px;
+            background: white;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .search-result-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(61, 47, 40, 0.1);
+        }
+        
+        .search-result-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .search-result-preview {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        /* Quote of the Day */
+        .quote-of-day {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(61, 47, 40, 0.15);
+            animation: slideUp 0.6s ease-out 0.5s backwards;
+        }
+        
+        .quote-of-day i {
+            font-size: 2rem;
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        
+        .quote-of-day p {
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.6;
+            padding-left: 50px;
+            margin: 0;
+        }
+        
+        .btn-refresh-quote {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-refresh-quote:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(180deg);
+        }
+        
+        /* Achievements Banner */
+        .achievements-banner {
+            background: linear-gradient(to right, #ffd700, #ffed4e);
+            color: var(--dark);
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            animation: slideDown 0.5s ease-out;
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+        }
+        
+        .achievement-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+        }
+        
+        .achievement-content i {
+            font-size: 1.5rem;
+        }
+        
+        /* Insights Modal Specific */
+        .insights-modal {
+            max-width: 800px;
+        }
+        
+        .insight-card {
+            background: var(--cream);
             padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .insight-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .insight-stat {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 10px 0;
+        }
+        
+        .quick-select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(139, 115, 85, 0.3);
+            border-radius: 10px;
+            background: var(--cream);
+            color: var(--dark);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        /* Mood & Habit Tracker */
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: slideUp 0.6s ease-out 0.6s backwards;
+        }
+        
+        .mood-tracker, .habit-tracker {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(61, 47, 40, 0.08);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+        }
+        
+        .mood-tracker h3, .habit-tracker h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .mood-options {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .mood-btn {
+            background: var(--cream);
+            border: 3px solid transparent;
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mood-btn:hover {
+            transform: scale(1.2);
+            border-color: var(--accent);
+        }
+        
+        .mood-btn.selected {
+            border-color: var(--primary);
+            background: rgba(139, 115, 85, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .mood-status {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .habits-list {
+            margin: 15px 0;
+        }
+        
+        .habit-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: var(--cream);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .habit-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .habit-item.completed {
+            background: rgba(139, 115, 85, 0.2);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .habit-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        
+        .habit-check {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .btn-add-habit {
+            width: 100%;
+            padding: 10px;
+            background: var(--cream);
+            border: 2px dashed rgba(139, 115, 85, 0.3);
+            border-radius: 8px;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add-habit:hover {
+            background: rgba(139, 115, 85, 0.1);
+            border-color: var(--primary);
+        }
+        
+        /* Weekly Summary */
+        .weekly-summary {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 16px rgba(61, 47, 40, 0.08);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            animation: slideUp 0.6s ease-out 0.7s backwards;
+        }
+        
+        .weekly-summary h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--cream);
+            border-radius: 10px;
+        }
+        
+        .summary-label {
+            display: block;
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        
+        .summary-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Templates Grid */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .template-card {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(61, 47, 40, 0.15);
+        }
+        
+        .template-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .template-card h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .template-card p {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+        
+        /* Reminders */
+        .reminders-content {
+            margin-top: 20px;
+        }
+        
+        .reminder-option {
+            background: var(--cream);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .reminder-option label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .reminder-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        /* Tags */
+        .tags-content {
+            margin-top: 20px;
+        }
+        
+        .tag-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tag-input-group input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .tag-badge {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
             opacity: 0.8;
         }
         
-        .motivation {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .tag-remove:hover {
+            opacity: 1;
         }
         
-        .motivation p {
-            font-style: italic;
-            color: #4a5568;
+        /* ATTACK MODE - JOB HUNT */
+        .attack-mode-container {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(230, 57, 70, 0.3);
+            animation: slideUp 0.6s ease-out 0.8s backwards;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .attack-mode-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .attack-mode-header h3 {
+            color: white;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+        
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #4caf50;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .attack-mode-content {
+            animation: slideDown 0.4s ease-out;
+        }
+        
+        .attack-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .attack-stat {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .attack-stat:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .attack-stat-icon {
+            font-size: 2rem;
             margin-bottom: 10px;
+        }
+        
+        .attack-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .attack-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .attack-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-attack {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-attack:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .attack-motivation {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid white;
+            margin-bottom: 20px;
+        }
+        
+        .attack-motivation p {
+            color: white;
+            font-style: italic;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .todays-actions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .todays-actions h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .action-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        .action-item-info {
+            flex: 1;
+        }
+        
+        .action-item-company {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .action-item-role {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .action-item-status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-applied { background: #4caf50; }
+        .status-screening { background: #ff9800; }
+        .status-interview { background: #2196f3; }
+        .status-offer { background: #ffd700; color: #333; }
+        .status-rejected { background: #666; }
+        
+        .attack-settings-content {
+            margin-top: 20px;
+        }
+        
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-group label {
+            display: block;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .setting-group input {
+            width: 100%;
+            margin-bottom: 0;
+        }
+        
+        /* Dark mode for attack mode */
+        body.dark-mode .attack-mode-container {
+            background: linear-gradient(135deg, #c1121f 0%, #a4161a 100%);
+        }
+        
+        /* Skill Level Badges */
+        .skill-level {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .level-beginner { background: #ffd60a; color: #333; }
+        .level-intermediate { background: #4cc9f0; color: white; }
+        .level-advanced { background: #4361ee; color: white; }
+        .level-expert { background: #7209b7; color: white; }
+        
+        .network-contact-card {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .network-contact-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(61, 47, 40, 0.1);
+        }
+        
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        
+        .contact-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .contact-type {
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .contact-details {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .skill-card {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .skill-progress {
+            margin-top: 10px;
+        }
+        
+        .skill-progress-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .skill-progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(139, 115, 85, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .research-card {
+            background: var(--cream);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .research-company-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .research-section {
+            margin-bottom: 15px;
+        }
+        
+        .research-section-title {
+            font-weight: 600;
+            color: var(--mocha);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .research-section-content {
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .analytics-card {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .analytics-title {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .analytics-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .analytics-chart {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .chart-label {
+            width: 120px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .chart-bar-bg {
+            flex: 1;
+            height: 30px;
+            background: rgba(139, 115, 85, 0.15);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .chart-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Tab Navigation */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: var(--light);
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+            color: var(--dark);
+        }
+        
+        .tab:hover {
+            background: var(--beige);
+            border-color: var(--primary);
+        }
+        
+        .tab.active {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            font-weight: 600;
+            border-color: transparent;
+        }
+        
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background: var(--light);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(61, 47, 40, 0.1);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 18px 18px 0 0;
+        }
+        
+        .section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(61, 47, 40, 0.15);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(139, 115, 85, 0.1);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .section-title i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .section-meta {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .section-content {
+            min-height: 160px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            color: var(--dark);
+            font-size: 1rem;
+            white-space: pre-wrap;
+        }
+        
+        .empty-state {
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        .section-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-edit {
+            background: linear-gradient(to right, var(--primary), var(--mocha));
+            color: white;
+        }
+        
+        .btn-delete {
+            background: linear-gradient(to right, var(--danger), #8b5a52);
+            color: white;
+        }
+        
+        .btn-history {
+            background: linear-gradient(to right, var(--warning), var(--sunset));
+            color: var(--dark);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-add {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            margin: 40px auto;
+            display: block;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(139, 115, 85, 0.3);
+        }
+        
+        .btn-add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.4);
         }
         
         .modal {
@@ -266,70 +1545,196 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
         }
         
         .modal-content {
-            background: white;
-            padding: 30px;
+            background: var(--light);
+            border-radius: 16px;
+            padding: 35px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(61, 47, 40, 0.2);
+            position: relative;
+            animation: modalSlideIn 0.4s ease-out;
+            border: 1px solid rgba(139, 115, 85, 0.15);
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+        }
+        
+        .modal-header h2 {
+            color: var(--dark);
+        }
+        
+        .close {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: var(--primary);
+        }
+        
+        input, textarea {
+            width: 100%;
+            background: var(--cream);
+            border: 1px solid rgba(139, 115, 85, 0.3);
+            border-radius: 10px;
+            padding: 18px;
+            color: var(--dark);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+        
+        textarea {
+            min-height: 220px;
+            resize: vertical;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(139, 115, 85, 0.2);
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: var(--gray);
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        .history-entry {
+            background: var(--cream);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .history-date {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        
+        .history-content {
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--light);
+            padding: 20px;
             border-radius: 15px;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            box-shadow: 0 4px 16px rgba(61, 47, 40, 0.08);
+            animation: scaleIn 0.5s ease-out backwards;
+            transition: all 0.3s ease;
         }
         
-        .modal-buttons {
+        .stat-card:nth-child(1) { animation-delay: 0.2s; }
+        .stat-card:nth-child(2) { animation-delay: 0.3s; }
+        .stat-card:nth-child(3) { animation-delay: 0.4s; }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(61, 47, 40, 0.12);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--mocha);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: var(--mocha);
+            font-size: 0.95rem;
+            background: var(--light);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            box-shadow: 0 4px 16px rgba(61, 47, 40, 0.08);
+        }
+        
+        .export-import {
             display: flex;
+            gap: 10px;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
-        .modal-btn {
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .modal-confirm {
-            background: #e53e3e;
-            color: white;
-        }
-        
-        .modal-cancel {
-            background: #a0aec0;
-            color: white;
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85rem;
         }
         
         @media (max-width: 768px) {
-            .stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .tasks-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .reset-btn {
-                position: relative;
-                top: 0;
-                right: 0;
-                margin-top: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .stats {
+            .sections-grid {
                 grid-template-columns: 1fr;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .btn-add {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .growth-rings {
+                justify-content: center;
             }
         }
     </style>
@@ -337,388 +1742,2711 @@
 <body>
     <div class="container">
         <header>
-            <h1>20-Day Job Hunt Challenge</h1>
-            <p class="subtitle">Your daily plan to land a job in 20 days</p>
-            <button class="reset-btn" id="reset-button">
-                <i class="fas fa-redo"></i> Reset Progress
-            </button>
+            <h1><i class="fas fa-seedling"></i> NEW ME</h1>
+            <p class="subtitle">Nature-Inspired Personal Growth</p>
+            <p class="nature-quote">"Growth is never by mere chance; it is the result of forces working together" - James Cash Penney</p>
             
-            <div class="progress-container">
-                <h2>Your Progress</h2>
-                <div class="progress-bar">
-                    <div class="progress" id="progress-bar"></div>
-                </div>
-                <div class="progress-info">
-                    <span id="progress-percent">0%</span>
-                    <span id="days-left">20 days remaining</span>
-                </div>
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="btn-quick" onclick="quickAddEntry()" title="Quick Entry">
+                    <i class="fas fa-plus-circle"></i> Quick Add
+                </button>
+                <button class="btn-quick" onclick="toggleSearch()" title="Search entries">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                <button class="btn-quick" onclick="showInsights()" title="View insights">
+                    <i class="fas fa-chart-pie"></i> Insights
+                </button>
+                <button class="btn-quick" onclick="showTemplates()" title="Templates">
+                    <i class="fas fa-file-alt"></i> Templates
+                </button>
+                <button class="btn-quick" onclick="showReminders()" title="Set reminders">
+                    <i class="fas fa-bell"></i> Reminders
+                </button>
+                <button class="btn-quick" onclick="showTags()" title="Manage tags">
+                    <i class="fas fa-tags"></i> Tags
+                </button>
+                <button class="btn-quick" onclick="toggleDarkMode()" title="Toggle theme">
+                    <i class="fas fa-moon"></i> Theme
+                </button>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container" id="searchContainer" style="display: none;">
+                <input type="text" id="searchInput" placeholder="Search your entries..." onkeyup="searchEntries()">
+                <div id="searchResults"></div>
             </div>
         </header>
         
-        <div class="motivation">
-            <p>"The only way to do great work is to love what you do." - Steve Jobs</p>
-            <p>Stay consistent and you'll land your dream job!</p>
-        </div>
-        
-        <div class="stats">
-            <div class="stat-box">
-                <i class="fas fa-paper-plane"></i>
-                <div class="stat-number" id="applications-count">0</div>
-                <p>Applications Sent</p>
-            </div>
-            <div class="stat-box">
-                <i class="fas fa-handshake"></i>
-                <div class="stat-number" id="interviews-count">0</div>
-                <p>Interviews</p>
-            </div>
-            <div class="stat-box">
-                <i class="fas fa-users"></i>
-                <div class="stat-number" id="networking-count">0</div>
-                <p>Networking Contacts</p>
-            </div>
-            <div class="stat-box">
-                <i class="fas fa-brain"></i>
-                <div class="stat-number" id="skills-count">0</div>
-                <p>Skills Improved</p>
-            </div>
-        </div>
-        
-        <div class="tasks-container">
-            <div class="task-card">
-                <div class="task-header">
-                    <div class="task-icon" style="background: #ebf8ff; color: #3182ce;">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="task-title">Research & Apply</div>
-                </div>
-                <p class="task-description">Find 5 suitable job openings and apply with tailored applications</p>
-                <div class="task-check">
-                    <input type="checkbox" id="task-1" class="daily-task">
-                    <label for="task-1">Mark as completed</label>
+        <!-- Growth Tracker (Tree Rings Concept) -->
+        <div class="growth-tracker">
+            <div class="growth-header">
+                <h3><i class="fas fa-chart-line"></i> Your Growth Journey</h3>
+                <div class="streak-info">
+                    <span class="streak-badge">
+                        <i class="fas fa-fire"></i> <span id="streakCount">0</span> Day Streak
+                    </span>
+                    <span class="total-days">
+                        <i class="fas fa-calendar-check"></i> <span id="totalActiveDays">0</span> Total Days
+                    </span>
                 </div>
             </div>
             
-            <div class="task-card">
-                <div class="task-header">
-                    <div class="task-icon" style="background: #e6fffa; color: #319795;">
-                        <i class="fas fa-handshake"></i>
+            <!-- Daily Goals Progress -->
+            <div class="daily-goals">
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span><i class="fas fa-pen"></i> Daily Entry</span>
+                        <span id="entryToday" class="goal-status">Not Started</span>
                     </div>
-                    <div class="task-title">Network Outreach</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="entryProgress" style="width: 0%"></div>
+                    </div>
                 </div>
-                <p class="task-description">Connect with 3 professionals in your target industry/companies</p>
-                <div class="task-check">
-                    <input type="checkbox" id="task-2" class="daily-task">
-                    <label for="task-2">Mark as completed</label>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span><i class="fas fa-book-open"></i> Reading Notes</span>
+                        <span id="readingToday" class="goal-status">Not Started</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="readingProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span><i class="fas fa-lightbulb"></i> Reflection</span>
+                        <span id="reflectionToday" class="goal-status">Not Started</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="reflectionProgress" style="width: 0%"></div>
+                    </div>
                 </div>
             </div>
             
-            <div class="task-card">
-                <div class="task-header">
-                    <div class="task-icon" style="background: #fff5f5; color: #e53e3e;">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="task-title">Skill Development</div>
-                </div>
-                <p class="task-description">Spend 45 minutes learning a relevant skill or improving existing ones</p>
-                <div class="task-check">
-                    <input type="checkbox" id="task-3" class="daily-task">
-                    <label for="task-3">Mark as completed</label>
+            <!-- Weekly Calendar View -->
+            <div class="weekly-calendar">
+                <h4><i class="fas fa-calendar-week"></i> This Week's Activity</h4>
+                <div class="calendar-grid" id="weeklyCalendar">
+                    <!-- Generated by JS -->
                 </div>
             </div>
             
-            <div class="task-card">
-                <div class="task-header">
-                    <div class="task-icon" style="background: #faf5ff; color: #805ad5;">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <div class="task-title">Follow Up</div>
+            <!-- Monthly Progress Rings -->
+            <div class="monthly-view">
+                <h4><i class="fas fa-calendar-alt"></i> Monthly Progress</h4>
+                <div class="month-selector">
+                    <button class="btn-month" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <span id="currentMonth">January 2026</span>
+                    <button class="btn-month" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                <p class="task-description">Follow up on 2 previous applications or interviews</p>
-                <div class="task-check">
-                    <input type="checkbox" id="task-4" class="daily-task">
-                    <label for="task-4">Mark as completed</label>
-                </div>
-            </div>
-            
-            <div class="task-card">
-                <div class="task-header">
-                    <div class="task-icon" style="background: #fffaf0; color: #dd6b20;">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div class="task-title">Interview Practice</div>
-                </div>
-                <p class="task-description">Practice answering 5 common interview questions for your field</p>
-                <div class="task-check">
-                    <input type="checkbox" id="task-5" class="daily-task">
-                    <label for="task-5">Mark as completed</label>
+                <div class="growth-rings" id="growthRings">
+                    <!-- Rings generated by JS -->
                 </div>
             </div>
         </div>
         
-        <div class="complete-day">
-            <h2>Complete Day <span id="current-day-number">1</span></h2>
-            <p>Mark the day as complete after finishing all 5 tasks</p>
-            <button class="complete-btn" id="complete-day">Complete Day</button>
+        <!-- Statistics Dashboard -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalEntries">0</div>
+                <div class="stat-label">Total Entries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="activeGoals">0</div>
+                <div class="stat-label">Active Sections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="daysActive">0</div>
+                <div class="stat-label">Days Active</div>
+            </div>
         </div>
         
-        <div class="calendar">
-            <h2>20-Day Progress Calendar</h2>
-            <div class="calendar-grid" id="calendar-grid">
-                <!-- Day boxes will be generated here -->
+        <!-- Motivational Quote of the Day -->
+        <div class="quote-of-day">
+            <i class="fas fa-quote-left"></i>
+            <p id="dailyQuote">Loading inspiration...</p>
+            <button class="btn-refresh-quote" onclick="refreshQuote()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+        
+        <!-- Job Hunt Attack Mode -->
+        <div class="attack-mode-container" id="attackModeContainer">
+            <div class="attack-mode-header">
+                <h3><i class="fas fa-crosshairs"></i> Job Hunt - Attack Mode</h3>
+                <label class="switch">
+                    <input type="checkbox" id="attackModeToggle" onchange="toggleAttackMode()">
+                    <span class="slider"></span>
+                </label>
             </div>
+            
+            <div class="attack-mode-content" id="attackModeContent" style="display: none;">
+                <div class="attack-stats-grid">
+                    <div class="attack-stat">
+                        <div class="attack-stat-icon">📅</div>
+                        <div class="attack-stat-value" id="huntDaysLeft">0</div>
+                        <div class="attack-stat-label">Days Left</div>
+                    </div>
+                    <div class="attack-stat">
+                        <div class="attack-stat-icon">📝</div>
+                        <div class="attack-stat-value" id="applicationsCount">0</div>
+                        <div class="attack-stat-label">Applications</div>
+                    </div>
+                    <div class="attack-stat">
+                        <div class="attack-stat-icon">📞</div>
+                        <div class="attack-stat-value" id="interviewsCount">0</div>
+                        <div class="attack-stat-label">Interviews</div>
+                    </div>
+                    <div class="attack-stat">
+                        <div class="attack-stat-icon">🎯</div>
+                        <div class="attack-stat-value" id="dailyGoalProgress">0/5</div>
+                        <div class="attack-stat-label">Daily Goal</div>
+                    </div>
+                    <div class="attack-stat">
+                        <div class="attack-stat-icon">🤝</div>
+                        <div class="attack-stat-value" id="networkingCount">0</div>
+                        <div class="attack-stat-label">Connections</div>
+                    </div>
+                    <div class="attack-stat">
+                        <div class="attack-stat-icon">📈</div>
+                        <div class="attack-stat-value" id="responseRate">0%</div>
+                        <div class="attack-stat-label">Response Rate</div>
+                    </div>
+                </div>
+                
+                <div class="attack-actions">
+                    <button class="btn-attack" onclick="logApplication()">
+                        <i class="fas fa-paper-plane"></i> Log Application
+                    </button>
+                    <button class="btn-attack" onclick="logInterview()">
+                        <i class="fas fa-video"></i> Log Interview
+                    </button>
+                    <button class="btn-attack" onclick="showJobHuntJournal()">
+                        <i class="fas fa-book"></i> Hunt Journal
+                    </button>
+                    <button class="btn-attack" onclick="showNetworking()">
+                        <i class="fas fa-users"></i> Networking
+                    </button>
+                    <button class="btn-attack" onclick="showSkillTracker()">
+                        <i class="fas fa-brain"></i> Skills
+                    </button>
+                    <button class="btn-attack" onclick="showCompanyResearch()">
+                        <i class="fas fa-building"></i> Research
+                    </button>
+                    <button class="btn-attack" onclick="showAnalytics()">
+                        <i class="fas fa-chart-line"></i> Analytics
+                    </button>
+                    <button class="btn-attack" onclick="attackModeSettings()">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+                
+                <div class="attack-motivation">
+                    <p id="attackMotivation">"Every application is a step closer to your goal."</p>
+                </div>
+                
+                <div class="todays-actions">
+                    <h4>📋 Today's Actions</h4>
+                    <div id="todaysActionsList">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mood & Habit Tracker -->
+        <div class="tracker-grid">
+            <div class="mood-tracker">
+                <h3><i class="fas fa-smile"></i> How are you feeling today?</h3>
+                <div class="mood-options">
+                    <button class="mood-btn" onclick="setMood('amazing')" title="Amazing">😄</button>
+                    <button class="mood-btn" onclick="setMood('good')" title="Good">🙂</button>
+                    <button class="mood-btn" onclick="setMood('okay')" title="Okay">😐</button>
+                    <button class="mood-btn" onclick="setMood('bad')" title="Bad">😟</button>
+                    <button class="mood-btn" onclick="setMood('terrible')" title="Terrible">😢</button>
+                </div>
+                <p class="mood-status" id="moodStatus">Not set today</p>
+            </div>
+            
+            <div class="habit-tracker">
+                <h3><i class="fas fa-check-circle"></i> Daily Habits</h3>
+                <div class="habits-list" id="habitsList">
+                    <!-- Generated by JS -->
+                </div>
+                <button class="btn-add-habit" onclick="addHabit()">
+                    <i class="fas fa-plus"></i> Add Habit
+                </button>
+            </div>
+        </div>
+        
+        <!-- Weekly Summary -->
+        <div class="weekly-summary" id="weeklySummary">
+            <h3><i class="fas fa-chart-bar"></i> This Week's Summary</h3>
+            <div class="summary-stats">
+                <div class="summary-item">
+                    <span class="summary-label">Entries</span>
+                    <span class="summary-value" id="weeklyEntries">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Avg Mood</span>
+                    <span class="summary-value" id="weeklyMood">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Habits</span>
+                    <span class="summary-value" id="weeklyHabits">0%</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Streak</span>
+                    <span class="summary-value" id="weeklyStreak">0🔥</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Achievements/Milestones -->
+        <div class="achievements-banner" id="achievementsBanner" style="display: none;">
+            <div class="achievement-content">
+                <i class="fas fa-trophy"></i>
+                <span id="achievementText"></span>
+            </div>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <div class="tab active" onclick="switchTab('core')">
+                <i class="fas fa-star"></i> Core Growth
+            </div>
+            <div class="tab" onclick="switchTab('problems')">
+                <i class="fas fa-puzzle-piece"></i> Challenges
+            </div>
+            <div class="tab" onclick="switchTab('custom')">
+                <i class="fas fa-plus-circle"></i> Custom Sections
+            </div>
+        </div>
+        
+        <!-- Core Growth Sections -->
+        <div id="coreTab" class="tab-content">
+            <div class="sections-grid" id="coreSections">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+        
+        <!-- Problems Tab -->
+        <div id="problemsTab" class="tab-content" style="display: none;">
+            <div class="sections-grid" id="problemsSections">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+        
+        <!-- Custom Sections Tab -->
+        <div id="customTab" class="tab-content" style="display: none;">
+            <div class="sections-grid" id="customSections">
+                <!-- Generated by JS -->
+            </div>
+            <button class="btn btn-add" onclick="addNewSection()">
+                <i class="fas fa-plus"></i> Add New Section
+            </button>
         </div>
         
         <footer>
-            <p>Stay focused. You've got this! The right job is waiting for you.</p>
+            <p><i class="fas fa-leaf"></i> New Me - Grow Like Nature Does</p>
+            <div class="export-import">
+                <button class="btn btn-edit btn-small" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+                <button class="btn btn-edit btn-small" onclick="importData()">
+                    <i class="fas fa-upload"></i> Import Data
+                </button>
+            </div>
         </footer>
     </div>
-
-    <!-- Reset Confirmation Modal -->
-    <div class="modal" id="reset-modal">
+    
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
         <div class="modal-content">
-            <h2>Reset Progress</h2>
-            <p>Are you sure you want to reset all your progress? This action cannot be undone.</p>
-            <div class="modal-buttons">
-                <button class="modal-btn modal-confirm" id="reset-confirm">Yes, Reset</button>
-                <button class="modal-btn modal-cancel" id="reset-cancel">Cancel</button>
+            <div class="modal-header">
+                <h2 id="modalTitle">Edit Section</h2>
+                <span class="close" onclick="closeModal('editModal')">&times;</span>
+            </div>
+            <textarea id="editor" placeholder="Write your content here..."></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('editModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveContent()">
+                    <i class="fas fa-save"></i> Save
+                </button>
             </div>
         </div>
     </div>
-
+    
+    <!-- History Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="historyTitle">Entry History</h2>
+                <span class="close" onclick="closeModal('historyModal')">&times;</span>
+            </div>
+            <div id="historyContent">
+                <!-- History entries -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('historyModal')">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Section Modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Section</h2>
+                <span class="close" onclick="closeModal('addModal')">&times;</span>
+            </div>
+            <input type="text" id="newSectionTitle" placeholder="Section title (e.g., 'Morning Routine')">
+            <input type="text" id="newSectionIcon" placeholder="Icon class (e.g., 'fas fa-sun')">
+            <textarea id="newSectionContent" placeholder="Initial content (optional)"></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('addModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="createNewSection()">
+                    <i class="fas fa-plus"></i> Create
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Entry Modal -->
+    <div class="modal" id="quickEntryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Quick Entry</h2>
+                <span class="close" onclick="closeModal('quickEntryModal')">&times;</span>
+            </div>
+            <select id="quickSection" class="quick-select">
+                <option value="">Select a section...</option>
+            </select>
+            <textarea id="quickContent" placeholder="What's on your mind?"></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('quickEntryModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveQuickEntry()">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Insights Modal -->
+    <div class="modal" id="insightsModal">
+        <div class="modal-content insights-modal">
+            <div class="modal-header">
+                <h2>📊 Your Growth Insights</h2>
+                <span class="close" onclick="closeModal('insightsModal')">&times;</span>
+            </div>
+            <div id="insightsContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Templates Modal -->
+    <div class="modal" id="templatesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📝 Entry Templates</h2>
+                <span class="close" onclick="closeModal('templatesModal')">&times;</span>
+            </div>
+            <div class="templates-grid">
+                <div class="template-card" onclick="useTemplate('gratitude')">
+                    <i class="fas fa-heart"></i>
+                    <h4>Gratitude Journal</h4>
+                    <p>What are you grateful for today?</p>
+                </div>
+                <div class="template-card" onclick="useTemplate('goals')">
+                    <i class="fas fa-bullseye"></i>
+                    <h4>Daily Goals</h4>
+                    <p>Set your intentions for the day</p>
+                </div>
+                <div class="template-card" onclick="useTemplate('reflection')">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Evening Reflection</h4>
+                    <p>Reflect on your day</p>
+                </div>
+                <div class="template-card" onclick="useTemplate('win')">
+                    <i class="fas fa-trophy"></i>
+                    <h4>Daily Win</h4>
+                    <p>Celebrate today's success</p>
+                </div>
+                <div class="template-card" onclick="useTemplate('learning')">
+                    <i class="fas fa-book"></i>
+                    <h4>Today I Learned</h4>
+                    <p>Document new insights</p>
+                </div>
+                <div class="template-card" onclick="useTemplate('custom')">
+                    <i class="fas fa-edit"></i>
+                    <h4>Blank Template</h4>
+                    <p>Start from scratch</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reminders Modal -->
+    <div class="modal" id="remindersModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⏰ Daily Reminders</h2>
+                <span class="close" onclick="closeModal('remindersModal')">&times;</span>
+            </div>
+            <div class="reminders-content">
+                <p style="color: var(--gray); margin-bottom: 20px;">
+                    <i class="fas fa-info-circle"></i> Set browser notifications to remind you to journal
+                </p>
+                <div class="reminder-option">
+                    <label>
+                        <input type="checkbox" id="morningReminder" onchange="saveReminders()">
+                        Morning (8:00 AM)
+                    </label>
+                </div>
+                <div class="reminder-option">
+                    <label>
+                        <input type="checkbox" id="afternoonReminder" onchange="saveReminders()">
+                        Afternoon (2:00 PM)
+                    </label>
+                </div>
+                <div class="reminder-option">
+                    <label>
+                        <input type="checkbox" id="eveningReminder" onchange="saveReminders()">
+                        Evening (8:00 PM)
+                    </label>
+                </div>
+                <button class="btn btn-edit" onclick="requestNotificationPermission()" style="margin-top: 20px; width: 100%;">
+                    <i class="fas fa-bell"></i> Enable Notifications
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tags Modal -->
+    <div class="modal" id="tagsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏷️ Manage Tags</h2>
+                <span class="close" onclick="closeModal('tagsModal')">&times;</span>
+            </div>
+            <div class="tags-content">
+                <div class="tag-input-group">
+                    <input type="text" id="newTagInput" placeholder="Add new tag (e.g., work, health, ideas)">
+                    <button class="btn btn-edit" onclick="addTag()">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+                <div class="tags-list" id="tagsList">
+                    <!-- Generated by JS -->
+                </div>
+                <p style="color: var(--gray); font-size: 0.85rem; margin-top: 15px;">
+                    <i class="fas fa-lightbulb"></i> Add tags to your entries to organize and filter them easily
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Habit Modal -->
+    <div class="modal" id="addHabitModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Daily Habit</h2>
+                <span class="close" onclick="closeModal('addHabitModal')">&times;</span>
+            </div>
+            <input type="text" id="habitNameInput" placeholder="Habit name (e.g., Meditate, Exercise)">
+            <input type="text" id="habitIconInput" placeholder="Icon (e.g., 🧘, 🏃, 💧)" maxlength="2">
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('addHabitModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveNewHabit()">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Attack Mode Settings Modal -->
+    <div class="modal" id="attackSettingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚔️ Attack Mode Settings</h2>
+                <span class="close" onclick="closeModal('attackSettingsModal')">&times;</span>
+            </div>
+            <div class="attack-settings-content">
+                <div class="setting-group">
+                    <label>Hunt Duration (Days)</label>
+                    <input type="number" id="huntDuration" placeholder="30" min="1" max="365">
+                </div>
+                <div class="setting-group">
+                    <label>Daily Application Goal</label>
+                    <input type="number" id="dailyGoalInput" placeholder="5" min="1" max="50">
+                </div>
+                <div class="setting-group">
+                    <label>Start Date</label>
+                    <input type="date" id="huntStartDate">
+                </div>
+                <div class="setting-group">
+                    <label>Target Role/Field</label>
+                    <input type="text" id="targetRole" placeholder="e.g., Software Engineer, Product Manager">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('attackSettingsModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveAttackSettings()">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Log Application Modal -->
+    <div class="modal" id="logApplicationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📝 Log Job Application</h2>
+                <span class="close" onclick="closeModal('logApplicationModal')">&times;</span>
+            </div>
+            <input type="text" id="companyName" placeholder="Company Name">
+            <input type="text" id="jobTitle" placeholder="Job Title/Position">
+            <input type="text" id="applicationLink" placeholder="Application Link (optional)">
+            <select id="applicationStatus" class="quick-select">
+                <option value="applied">Applied</option>
+                <option value="screening">Under Review</option>
+                <option value="interview">Interview Scheduled</option>
+                <option value="offer">Offer Received</option>
+                <option value="rejected">Rejected</option>
+            </select>
+            <textarea id="applicationNotes" placeholder="Notes (optional)"></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('logApplicationModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveApplication()">
+                    <i class="fas fa-save"></i> Log Application
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Log Interview Modal -->
+    <div class="modal" id="logInterviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📞 Log Interview</h2>
+                <span class="close" onclick="closeModal('logInterviewModal')">&times;</span>
+            </div>
+            <input type="text" id="interviewCompany" placeholder="Company Name">
+            <input type="text" id="interviewRole" placeholder="Role/Position">
+            <input type="datetime-local" id="interviewDateTime">
+            <select id="interviewType" class="quick-select">
+                <option value="phone">Phone Screening</option>
+                <option value="technical">Technical Round</option>
+                <option value="hr">HR Round</option>
+                <option value="final">Final Round</option>
+                <option value="other">Other</option>
+            </select>
+            <textarea id="interviewNotes" placeholder="Preparation notes, questions to ask, etc."></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('logInterviewModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveInterview()">
+                    <i class="fas fa-save"></i> Log Interview
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Job Hunt Journal Modal -->
+    <div class="modal" id="jobHuntJournalModal">
+        <div class="modal-content insights-modal">
+            <div class="modal-header">
+                <h2>📖 Job Hunt Journal</h2>
+                <span class="close" onclick="closeModal('jobHuntJournalModal')">&times;</span>
+            </div>
+            <div id="jobHuntJournalContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Networking Tracker Modal -->
+    <div class="modal" id="networkingModal">
+        <div class="modal-content insights-modal">
+            <div class="modal-header">
+                <h2>🤝 Networking Tracker</h2>
+                <span class="close" onclick="closeModal('networkingModal')">&times;</span>
+            </div>
+            <button class="btn btn-edit" onclick="addNetworkContact()" style="margin-bottom: 20px; width: 100%;">
+                <i class="fas fa-plus"></i> Add New Contact
+            </button>
+            <div id="networkingContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Network Contact Modal -->
+    <div class="modal" id="addContactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Network Contact</h2>
+                <span class="close" onclick="closeModal('addContactModal')">&times;</span>
+            </div>
+            <input type="text" id="contactName" placeholder="Name">
+            <input type="text" id="contactCompany" placeholder="Company">
+            <input type="text" id="contactRole" placeholder="Role/Title">
+            <input type="text" id="contactLinkedIn" placeholder="LinkedIn URL (optional)">
+            <select id="contactType" class="quick-select">
+                <option value="recruiter">Recruiter</option>
+                <option value="hiring-manager">Hiring Manager</option>
+                <option value="employee">Current Employee</option>
+                <option value="alumni">Alumni</option>
+                <option value="referral">Referral Source</option>
+                <option value="other">Other</option>
+            </select>
+            <textarea id="contactNotes" placeholder="Notes, conversation summary, follow-up items..."></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('addContactModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveContact()">
+                    <i class="fas fa-save"></i> Save Contact
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Skills Tracker Modal -->
+    <div class="modal" id="skillsModal">
+        <div class="modal-content insights-modal">
+            <div class="modal-header">
+                <h2>🧠 Skills Improvement Tracker</h2>
+                <span class="close" onclick="closeModal('skillsModal')">&times;</span>
+            </div>
+            <button class="btn btn-edit" onclick="addSkill()" style="margin-bottom: 20px; width: 100%;">
+                <i class="fas fa-plus"></i> Add Skill to Track
+            </button>
+            <div id="skillsContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Skill Modal -->
+    <div class="modal" id="addSkillModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Track New Skill</h2>
+                <span class="close" onclick="closeModal('addSkillModal')">&times;</span>
+            </div>
+            <input type="text" id="skillName" placeholder="Skill name (e.g., React, Python, Data Analysis)">
+            <select id="skillCategory" class="quick-select">
+                <option value="technical">Technical</option>
+                <option value="soft">Soft Skills</option>
+                <option value="tools">Tools & Software</option>
+                <option value="language">Language</option>
+                <option value="certification">Certification</option>
+            </select>
+            <select id="skillLevel" class="quick-select">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="expert">Expert</option>
+            </select>
+            <textarea id="skillGoal" placeholder="Learning goals, resources, practice plan..."></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('addSkillModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveSkill()">
+                    <i class="fas fa-save"></i> Save Skill
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Company Research Modal -->
+    <div class="modal" id="companyResearchModal">
+        <div class="modal-content insights-modal">
+            <div class="modal-header">
+                <h2>🏢 Company Research Notes</h2>
+                <span class="close" onclick="closeModal('companyResearchModal')">&times;</span>
+            </div>
+            <button class="btn btn-edit" onclick="addCompanyResearch()" style="margin-bottom: 20px; width: 100%;">
+                <i class="fas fa-plus"></i> Add Company Research
+            </button>
+            <div id="companyResearchContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Company Research Modal -->
+    <div class="modal" id="addResearchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Research Company</h2>
+                <span class="close" onclick="closeModal('addResearchModal')">&times;</span>
+            </div>
+            <input type="text" id="researchCompany" placeholder="Company Name">
+            <input type="text" id="researchIndustry" placeholder="Industry">
+            <input type="text" id="researchSize" placeholder="Company Size (e.g., 100-500 employees)">
+            <textarea id="researchCulture" placeholder="Culture & Values..."></textarea>
+            <textarea id="researchProducts" placeholder="Products & Services..."></textarea>
+            <textarea id="researchNews" placeholder="Recent News & Developments..."></textarea>
+            <textarea id="researchWhyInterested" placeholder="Why are you interested in this company?"></textarea>
+            <div class="modal-actions">
+                <button class="btn btn-delete" onclick="closeModal('addResearchModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-edit" onclick="saveResearch()">
+                    <i class="fas fa-save"></i> Save Research
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Analytics Modal -->
+    <div class="modal" id="analyticsModal">
+        <div class="modal-content insights-modal">
+            <div class="modal-header">
+                <h2>📊 Job Hunt Analytics</h2>
+                <span class="close" onclick="closeModal('analyticsModal')">&times;</span>
+            </div>
+            <div id="analyticsContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </div>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize data
-            let completedDays = JSON.parse(localStorage.getItem('jobHuntCompletedDays')) || {};
-            let completedTasks = JSON.parse(localStorage.getItem('jobHuntCompletedTasks')) || {};
-            let stats = JSON.parse(localStorage.getItem('jobHuntStats')) || {
-                applications: 0,
-                interviews: 0,
-                networking: 0,
-                skills: 0
+        // Data structure
+        const defaultSections = {
+            core: [
+                { id: 'readEveryday', title: 'Read Everyday', icon: 'fas fa-book-open' },
+                { id: 'whenInDoubt', title: 'When in Doubt', icon: 'fas fa-question-circle' },
+                { id: 'learnings', title: 'Learnings', icon: 'fas fa-graduation-cap' },
+                { id: 'behavior', title: 'Behavior', icon: 'fas fa-chart-line' },
+                { id: 'purpose', title: 'My Purpose', icon: 'fas fa-star' }
+            ],
+            problems: [
+                { id: 'problemA', title: 'Problem A', icon: 'fas fa-puzzle-piece' },
+                { id: 'problemB', title: 'Problem B', icon: 'fas fa-puzzle-piece' }
+            ]
+        };
+        
+        let currentSection = null;
+        let sections = JSON.parse(localStorage.getItem('sections')) || defaultSections;
+        let customSections = JSON.parse(localStorage.getItem('customSections')) || [];
+        let currentMonthOffset = 1; // Start with February 2026
+        
+        // Initialize
+        window.onload = function() {
+            renderAllSections();
+            updateStats();
+            generateGrowthRings();
+            generateWeeklyCalendar();
+            updateDailyGoals();
+            loadDailyQuote();
+            checkAchievements();
+            populateQuickSections();
+            loadDailyMood();
+            loadHabits();
+            updateWeeklySummary();
+            loadReminders();
+            loadTags();
+            loadAttackMode();
+            
+            // Close modal on outside click
+            window.onclick = function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
             };
+        };
+        
+        // Render sections
+        function renderAllSections() {
+            renderSections('core', sections.core, 'coreSections');
+            renderSections('problems', sections.problems, 'problemsSections');
+            renderCustomSections();
+        }
+        
+        function renderSections(category, sectionList, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
             
-            // Get current day from localStorage or set to 1
-            let currentDay = parseInt(localStorage.getItem('jobHuntCurrentDay')) || 1;
-            
-            // Initialize UI
-            updateUI();
-            
-            // Add event listeners to daily tasks
-            document.querySelectorAll('.daily-task').forEach((checkbox, index) => {
-                // Set initial state
-                const taskId = `day-${currentDay}-task-${index+1}`;
-                if (completedTasks[taskId]) {
-                    checkbox.checked = true;
-                }
+            sectionList.forEach(section => {
+                const content = localStorage.getItem(section.id) || '';
+                const lastEdited = localStorage.getItem(`${section.id}_lastEdited`) || 'Never';
                 
-                checkbox.addEventListener('change', function() {
-                    const taskId = `day-${currentDay}-task-${index+1}`;
-                    
-                    if (this.checked) {
-                        completedTasks[taskId] = true;
-                        
-                        // Update stats based on which task was completed
-                        switch(index) {
-                            case 0: // Research & Apply
-                                stats.applications += 5;
-                                break;
-                            case 1: // Network Outreach
-                                stats.networking += 3;
-                                break;
-                            case 2: // Skill Development
-                                stats.skills += 1;
-                                break;
-                            case 3: // Follow Up
-                                stats.applications += 2;
-                                break;
-                            case 4: // Interview Practice
-                                stats.interviews += 1;
-                                break;
-                        }
-                    } else {
-                        delete completedTasks[taskId];
-                        
-                        // Update stats based on which task was unchecked
-                        switch(index) {
-                            case 0: // Research & Apply
-                                stats.applications = Math.max(0, stats.applications - 5);
-                                break;
-                            case 1: // Network Outreach
-                                stats.networking = Math.max(0, stats.networking - 3);
-                                break;
-                            case 2: // Skill Development
-                                stats.skills = Math.max(0, stats.skills - 1);
-                                break;
-                            case 3: // Follow Up
-                                stats.applications = Math.max(0, stats.applications - 2);
-                                break;
-                            case 4: // Interview Practice
-                                stats.interviews = Math.max(0, stats.interviews - 1);
-                                break;
-                        }
-                    }
-                    
-                    updateStats();
-                    saveData();
-                    updateCompleteButtonState();
-                });
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'section';
+                sectionDiv.innerHTML = `
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                <i class="${section.icon}"></i> ${section.title}
+                            </h2>
+                            <div class="section-meta">Last updated: ${formatDate(lastEdited)}</div>
+                        </div>
+                    </div>
+                    <div class="section-content ${!content ? 'empty-state' : ''}" id="${section.id}Content">
+                        ${content || 'Start your journey - add your first entry...'}
+                    </div>
+                    <div class="section-actions">
+                        <button class="btn btn-edit" onclick="openEditor('${section.id}', '${section.title}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-history" onclick="showHistory('${section.id}', '${section.title}')">
+                            <i class="fas fa-history"></i> History
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteContent('${section.id}')">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </div>
+                `;
+                container.appendChild(sectionDiv);
             });
+        }
+        
+        function renderCustomSections() {
+            const container = document.getElementById('customSections');
+            container.innerHTML = '';
             
-            // Complete day functionality
-            document.getElementById('complete-day').addEventListener('click', function() {
-                // Check if all tasks are completed
-                let allCompleted = true;
-                document.querySelectorAll('.daily-task').forEach(checkbox => {
-                    if (!checkbox.checked) allCompleted = false;
-                });
+            customSections.forEach((section, index) => {
+                const content = localStorage.getItem(section.id) || '';
+                const lastEdited = localStorage.getItem(`${section.id}_lastEdited`) || 'Never';
                 
-                if (!allCompleted) {
-                    alert('Please complete all tasks before finishing the day!');
-                    return;
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'section';
+                sectionDiv.innerHTML = `
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                <i class="${section.icon}"></i> ${section.title}
+                            </h2>
+                            <div class="section-meta">Last updated: ${formatDate(lastEdited)}</div>
+                        </div>
+                    </div>
+                    <div class="section-content ${!content ? 'empty-state' : ''}" id="${section.id}Content">
+                        ${content || 'Start writing...'}
+                    </div>
+                    <div class="section-actions">
+                        <button class="btn btn-edit" onclick="openEditor('${section.id}', '${section.title}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-history" onclick="showHistory('${section.id}', '${section.title}')">
+                            <i class="fas fa-history"></i> History
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteCustomSection(${index})">
+                            <i class="fas fa-trash-alt"></i> Remove Section
+                        </button>
+                    </div>
+                `;
+                container.appendChild(sectionDiv);
+            });
+        }
+        
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            
+            event.target.closest('.tab').classList.add('active');
+            document.getElementById(tab + 'Tab').style.display = 'block';
+        }
+        
+        // Editor functions
+        function openEditor(sectionId, sectionTitle) {
+            currentSection = sectionId;
+            const contentElement = document.getElementById(`${sectionId}Content`);
+            const currentContent = localStorage.getItem(sectionId) || '';
+            
+            document.getElementById('editor').value = currentContent;
+            document.getElementById('modalTitle').textContent = `Edit ${sectionTitle}`;
+            document.getElementById('editModal').style.display = 'flex';
+        }
+        
+        function saveContent() {
+            if (currentSection) {
+                const content = document.getElementById('editor').value;
+                const now = new Date().toISOString();
+                const today = now.split('T')[0];
+                
+                // Save to history
+                const history = JSON.parse(localStorage.getItem(`${currentSection}_history`)) || [];
+                if (content.trim()) {
+                    history.unshift({ date: now, content: content });
+                    if (history.length > 10) history.pop(); // Keep last 10
+                    localStorage.setItem(`${currentSection}_history`, JSON.stringify(history));
                 }
                 
-                // Mark day as completed
-                completedDays[currentDay] = true;
+                // Save current content
+                localStorage.setItem(currentSection, content);
+                localStorage.setItem(`${currentSection}_lastEdited`, now);
                 
-                // Move to next day
-                currentDay = Math.min(currentDay + 1, 20);
+                // Update activity log
+                const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+                activityLog[today] = (activityLog[today] || 0) + 1;
+                localStorage.setItem('activityLog', JSON.stringify(activityLog));
                 
-                // Reset task checkboxes for the new day
-                document.querySelectorAll('.daily-task').forEach(checkbox => {
-                    checkbox.checked = false;
-                });
-                
-                updateUI();
-                saveData();
-                
-                // Show congratulations message
-                if (currentDay <= 20) {
-                    setTimeout(() => {
-                        alert(`Congratulations on completing Day ${currentDay - 1}! Ready for Day ${currentDay}?`);
-                    }, 500);
+                // Mark daily goals based on section
+                if (currentSection === 'readEveryday') {
+                    markDailyGoal('reading');
+                } else if (currentSection === 'learnings' || currentSection === 'behavior') {
+                    markDailyGoal('reflection');
                 } else {
-                    setTimeout(() => {
-                        alert('Congratulations! You have completed all 20 days of the job hunt challenge!');
-                    }, 500);
+                    markDailyGoal('entry');
                 }
-            });
-            
-            // Reset functionality
-            document.getElementById('reset-button').addEventListener('click', function() {
-                document.getElementById('reset-modal').style.display = 'flex';
-            });
-            
-            document.getElementById('reset-cancel').addEventListener('click', function() {
-                document.getElementById('reset-modal').style.display = 'none';
-            });
-            
-            document.getElementById('reset-confirm').addEventListener('click', function() {
-                // Clear all data
-                localStorage.removeItem('jobHuntCompletedDays');
-                localStorage.removeItem('jobHuntCompletedTasks');
-                localStorage.removeItem('jobHuntStats');
-                localStorage.removeItem('jobHuntCurrentDay');
-                
-                // Reset variables
-                completedDays = {};
-                completedTasks = {};
-                stats = {
-                    applications: 0,
-                    interviews: 0,
-                    networking: 0,
-                    skills: 0
-                };
-                currentDay = 1;
-                
-                // Uncheck all checkboxes
-                document.querySelectorAll('.daily-task').forEach(checkbox => {
-                    checkbox.checked = false;
-                });
                 
                 // Update UI
-                updateUI();
+                const contentElement = document.getElementById(`${currentSection}Content`);
+                contentElement.textContent = content || 'Start your journey - add your first entry...';
+                contentElement.className = content ? 'section-content' : 'section-content empty-state';
                 
-                // Hide modal
-                document.getElementById('reset-modal').style.display = 'none';
-                
-                // Show confirmation message
-                alert('Progress has been reset. You are now starting from Day 1.');
-            });
+                closeModal('editModal');
+                updateStats();
+                generateGrowthRings();
+                generateWeeklyCalendar();
+                updateDailyGoals();
+                checkAchievements();
+            }
+        }
+        
+        function deleteContent(sectionId) {
+            if (confirm('Are you sure you want to delete this content?')) {
+                localStorage.removeItem(sectionId);
+                const contentElement = document.getElementById(`${sectionId}Content`);
+                contentElement.textContent = 'Start your journey - add your first entry...';
+                contentElement.className = 'section-content empty-state';
+                updateStats();
+            }
+        }
+        
+        function showHistory(sectionId, sectionTitle) {
+            const history = JSON.parse(localStorage.getItem(`${sectionId}_history`)) || [];
+            const historyContent = document.getElementById('historyContent');
+            document.getElementById('historyTitle').textContent = `${sectionTitle} - History`;
             
-            // Generate calendar view
-            function generateCalendar() {
-                const calendar = document.getElementById('calendar-grid');
-                calendar.innerHTML = '';
+            if (history.length === 0) {
+                historyContent.innerHTML = '<p class="empty-state">No history yet. Start editing to build your growth timeline!</p>';
+            } else {
+                historyContent.innerHTML = history.map(entry => `
+                    <div class="history-entry">
+                        <div class="history-date">${formatDate(entry.date)}</div>
+                        <div class="history-content">${entry.content}</div>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('historyModal').style.display = 'flex';
+        }
+        
+        // Custom sections
+        function addNewSection() {
+            document.getElementById('newSectionTitle').value = '';
+            document.getElementById('newSectionIcon').value = 'fas fa-leaf';
+            document.getElementById('newSectionContent').value = '';
+            document.getElementById('addModal').style.display = 'flex';
+        }
+        
+        function createNewSection() {
+            const title = document.getElementById('newSectionTitle').value.trim();
+            const icon = document.getElementById('newSectionIcon').value.trim() || 'fas fa-leaf';
+            const content = document.getElementById('newSectionContent').value.trim();
+            
+            if (!title) {
+                alert('Please enter a section title');
+                return;
+            }
+            
+            const id = 'custom_' + Date.now();
+            const newSection = { id, title, icon };
+            
+            customSections.push(newSection);
+            localStorage.setItem('customSections', JSON.stringify(customSections));
+            
+            if (content) {
+                localStorage.setItem(id, content);
+                localStorage.setItem(`${id}_lastEdited`, new Date().toISOString());
+            }
+            
+            renderCustomSections();
+            closeModal('addModal');
+            updateStats();
+            switchTab('custom');
+        }
+        
+        function deleteCustomSection(index) {
+            if (confirm('Delete this entire section and all its content?')) {
+                const section = customSections[index];
+                localStorage.removeItem(section.id);
+                localStorage.removeItem(`${section.id}_lastEdited`);
+                localStorage.removeItem(`${section.id}_history`);
                 
-                for (let day = 1; day <= 20; day++) {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'day-box';
-                    
-                    if (day === currentDay) {
-                        dayElement.classList.add('current');
-                    } else if (completedDays[day]) {
-                        dayElement.classList.add('completed');
-                    }
-                    
-                    dayElement.textContent = day;
-                    calendar.appendChild(dayElement);
+                customSections.splice(index, 1);
+                localStorage.setItem('customSections', JSON.stringify(customSections));
+                
+                renderCustomSections();
+                updateStats();
+            }
+        }
+        
+        // Growth rings (visual progress tracker)
+        function generateGrowthRings() {
+            const container = document.getElementById('growthRings');
+            const today = new Date();
+            const targetMonth = new Date(today.getFullYear(), today.getMonth() + currentMonthOffset, 1);
+            const daysInMonth = new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0).getDate();
+            
+            // Update month display
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[targetMonth.getMonth()]} ${targetMonth.getFullYear()}`;
+            
+            // Get activity data
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            
+            container.innerHTML = '';
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateKey = `${targetMonth.getFullYear()}-${String(targetMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const isToday = today.getDate() === day && 
+                               today.getMonth() === targetMonth.getMonth() && 
+                               today.getFullYear() === targetMonth.getFullYear();
+                const isFuture = new Date(dateKey) > today;
+                const hasActivity = activityLog[dateKey] > 0;
+                
+                const ring = document.createElement('div');
+                ring.className = 'ring';
+                if (hasActivity) ring.classList.add('active');
+                if (isToday) ring.classList.add('today');
+                if (isFuture) ring.classList.add('future');
+                
+                ring.textContent = day;
+                ring.title = `${dateKey}${hasActivity ? ` - ${activityLog[dateKey]} entries` : ''}`;
+                
+                container.appendChild(ring);
+            }
+            
+            updateStreak();
+        }
+        
+        function changeMonth(offset) {
+            currentMonthOffset += offset;
+            // Limit to ±12 months from current month
+            if (currentMonthOffset < -12) currentMonthOffset = -12;
+            if (currentMonthOffset > 12) currentMonthOffset = 12;
+            generateGrowthRings();
+        }
+        
+        // Weekly Calendar
+        function generateWeeklyCalendar() {
+            const container = document.getElementById('weeklyCalendar');
+            const today = new Date();
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            
+            container.innerHTML = '';
+            
+            // Get the start of the week (Sunday)
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(startOfWeek);
+                date.setDate(startOfWeek.getDate() + i);
+                
+                const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                const isToday = date.toDateString() === today.toDateString();
+                const entries = activityLog[dateKey] || 0;
+                
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                if (entries > 0) dayDiv.classList.add('active');
+                if (isToday) dayDiv.classList.add('today');
+                
+                dayDiv.innerHTML = `
+                    <div class="day-name">${dayNames[i]}</div>
+                    <div class="day-date">${date.getDate()}</div>
+                    <div class="day-entries">${entries > 0 ? `${entries} ${entries === 1 ? 'entry' : 'entries'}` : ''}</div>
+                `;
+                
+                container.appendChild(dayDiv);
+            }
+        }
+        
+        // Daily Goals
+        function updateDailyGoals() {
+            const today = new Date().toISOString().split('T')[0];
+            const dailyData = JSON.parse(localStorage.getItem(`daily_${today}`)) || {
+                entry: false,
+                reading: false,
+                reflection: false
+            };
+            
+            // Update entry goal
+            document.getElementById('entryToday').textContent = dailyData.entry ? 'Completed ✓' : 'Not Started';
+            document.getElementById('entryToday').className = dailyData.entry ? 'goal-status completed' : 'goal-status';
+            document.getElementById('entryProgress').style.width = dailyData.entry ? '100%' : '0%';
+            
+            // Update reading goal
+            document.getElementById('readingToday').textContent = dailyData.reading ? 'Completed ✓' : 'Not Started';
+            document.getElementById('readingToday').className = dailyData.reading ? 'goal-status completed' : 'goal-status';
+            document.getElementById('readingProgress').style.width = dailyData.reading ? '100%' : '0%';
+            
+            // Update reflection goal
+            document.getElementById('reflectionToday').textContent = dailyData.reflection ? 'Completed ✓' : 'Not Started';
+            document.getElementById('reflectionToday').className = dailyData.reflection ? 'goal-status completed' : 'goal-status';
+            document.getElementById('reflectionProgress').style.width = dailyData.reflection ? '100%' : '0%';
+        }
+        
+        function markDailyGoal(goalType) {
+            const today = new Date().toISOString().split('T')[0];
+            const dailyData = JSON.parse(localStorage.getItem(`daily_${today}`)) || {
+                entry: false,
+                reading: false,
+                reflection: false
+            };
+            
+            dailyData[goalType] = true;
+            localStorage.setItem(`daily_${today}`, JSON.stringify(dailyData));
+            updateDailyGoals();
+        }
+        
+        function updateStreak() {
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            const dates = Object.keys(activityLog).sort().reverse();
+            
+            let streak = 0;
+            let totalDays = dates.length;
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Calculate current streak
+            for (let i = 0; i < dates.length; i++) {
+                const expectedDate = new Date();
+                expectedDate.setDate(expectedDate.getDate() - i);
+                const expectedKey = expectedDate.toISOString().split('T')[0];
+                
+                if (dates.includes(expectedKey)) {
+                    streak++;
+                } else {
+                    break;
                 }
             }
             
-            // Calculate and update progress
-            function updateProgress() {
-                const completedCount = Object.keys(completedDays).length;
-                const percent = Math.round((completedCount / 20) * 100);
+            document.getElementById('streakCount').textContent = streak;
+            document.getElementById('totalActiveDays').textContent = totalDays;
+        }
+        
+        // Statistics
+        function updateStats() {
+            const allSections = [...sections.core, ...sections.problems, ...customSections];
+            const totalEntries = allSections.reduce((sum, s) => {
+                const history = JSON.parse(localStorage.getItem(`${s.id}_history`)) || [];
+                return sum + history.length;
+            }, 0);
+            
+            const activeGoals = allSections.filter(s => localStorage.getItem(s.id)).length;
+            
+            // Calculate days active from activity log
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            const daysActive = Object.keys(activityLog).length;
+            
+            document.getElementById('totalEntries').textContent = totalEntries;
+            document.getElementById('activeGoals').textContent = activeGoals;
+            document.getElementById('daysActive').textContent = daysActive;
+        }
+        
+        // Export/Import
+        function exportData() {
+            try {
+                const data = {
+                    sections: sections,
+                    customSections: customSections,
+                    content: {},
+                    history: {},
+                    lastEdited: {},
+                    activityLog: JSON.parse(localStorage.getItem('activityLog')) || {},
+                    dailyGoals: {}
+                };
                 
-                document.getElementById('progress-bar').style.width = `${percent}%`;
-                document.getElementById('progress-percent').textContent = `${percent}%`;
-                document.getElementById('days-left').textContent = `${20 - completedCount} days remaining`;
-            }
-            
-            // Update statistics display
-            function updateStats() {
-                document.getElementById('applications-count').textContent = stats.applications;
-                document.getElementById('interviews-count').textContent = stats.interviews;
-                document.getElementById('networking-count').textContent = stats.networking;
-                document.getElementById('skills-count').textContent = stats.skills;
-            }
-            
-            // Update the current day display
-            function updateCurrentDay() {
-                document.getElementById('current-day-number').textContent = currentDay;
-            }
-            
-            // Update the complete button state
-            function updateCompleteButtonState() {
-                let allCompleted = true;
-                document.querySelectorAll('.daily-task').forEach(checkbox => {
-                    if (!checkbox.checked) allCompleted = false;
+                const allSections = [...sections.core, ...sections.problems, ...customSections];
+                allSections.forEach(s => {
+                    data.content[s.id] = localStorage.getItem(s.id);
+                    data.history[s.id] = localStorage.getItem(`${s.id}_history`);
+                    data.lastEdited[s.id] = localStorage.getItem(`${s.id}_lastEdited`);
                 });
                 
-                document.getElementById('complete-day').disabled = !allCompleted;
+                // Export daily goals for last 30 days
+                const today = new Date();
+                for (let i = 0; i < 30; i++) {
+                    const date = new Date(today);
+                    date.setDate(today.getDate() - i);
+                    const dateKey = date.toISOString().split('T')[0];
+                    const dailyData = localStorage.getItem(`daily_${dateKey}`);
+                    if (dailyData) {
+                        data.dailyGoals[dateKey] = dailyData;
+                    }
+                }
+                
+                const jsonString = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `new-me-backup-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('Data exported successfully! ✓');
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Error exporting data: ' + error.message);
+            }
+        }
+        
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = event => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        
+                        if (confirm('This will replace all current data. Continue?')) {
+                            sections = data.sections || defaultSections;
+                            customSections = data.customSections || [];
+                            
+                            localStorage.setItem('sections', JSON.stringify(sections));
+                            localStorage.setItem('customSections', JSON.stringify(customSections));
+                            
+                            // Restore activity log
+                            if (data.activityLog) {
+                                localStorage.setItem('activityLog', JSON.stringify(data.activityLog));
+                            }
+                            
+                            // Restore content, history, and timestamps
+                            Object.keys(data.content).forEach(key => {
+                                if (data.content[key]) localStorage.setItem(key, data.content[key]);
+                            });
+                            
+                            Object.keys(data.history).forEach(key => {
+                                if (data.history[key]) localStorage.setItem(`${key}_history`, data.history[key]);
+                            });
+                            
+                            Object.keys(data.lastEdited).forEach(key => {
+                                if (data.lastEdited[key]) localStorage.setItem(`${key}_lastEdited`, data.lastEdited[key]);
+                            });
+                            
+                            // Restore daily goals
+                            if (data.dailyGoals) {
+                                Object.keys(data.dailyGoals).forEach(key => {
+                                    localStorage.setItem(`daily_${key}`, data.dailyGoals[key]);
+                                });
+                            }
+                            
+                            alert('Data imported successfully! The page will now reload.');
+                            location.reload();
+                        }
+                    } catch (err) {
+                        console.error('Import error:', err);
+                        alert('Error importing data: ' + err.message + '\n\nPlease check that the file is a valid backup.');
+                    }
+                };
+                reader.onerror = () => {
+                    alert('Error reading file. Please try again.');
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        // Utilities
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        function formatDate(dateStr) {
+            if (dateStr === 'Never') return dateStr;
+            const date = new Date(dateStr);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // NEW FEATURES
+        
+        // Motivational Quotes
+        const quotes = [
+            "The secret of getting ahead is getting started.",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+            "Believe you can and you're halfway there.",
+            "The only way to do great work is to love what you do.",
+            "Don't watch the clock; do what it does. Keep going.",
+            "The future belongs to those who believe in the beauty of their dreams.",
+            "It does not matter how slowly you go as long as you do not stop.",
+            "Everything you've ever wanted is on the other side of fear.",
+            "Success is the sum of small efforts repeated day in and day out.",
+            "The journey of a thousand miles begins with one step.",
+            "Your limitation—it's only your imagination.",
+            "Great things never come from comfort zones.",
+            "Dream it. Wish it. Do it.",
+            "Success doesn't just find you. You have to go out and get it.",
+            "The harder you work for something, the greater you'll feel when you achieve it.",
+            "Don't stop when you're tired. Stop when you're done.",
+            "Wake up with determination. Go to bed with satisfaction.",
+            "Do something today that your future self will thank you for.",
+            "Little things make big days.",
+            "It's going to be hard, but hard does not mean impossible."
+        ];
+        
+        function loadDailyQuote() {
+            const today = new Date().toISOString().split('T')[0];
+            let savedQuote = localStorage.getItem(`quote_${today}`);
+            
+            if (!savedQuote) {
+                savedQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                localStorage.setItem(`quote_${today}`, savedQuote);
             }
             
-            // Update the entire UI
-            function updateUI() {
-                updateProgress();
-                updateStats();
-                updateCurrentDay();
-                generateCalendar();
-                updateCompleteButtonState();
+            document.getElementById('dailyQuote').textContent = savedQuote;
+        }
+        
+        function refreshQuote() {
+            const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('dailyQuote').textContent = newQuote;
+            const today = new Date().toISOString().split('T')[0];
+            localStorage.setItem(`quote_${today}`, newQuote);
+        }
+        
+        // Quick Entry
+        function populateQuickSections() {
+            const select = document.getElementById('quickSection');
+            const allSections = [...sections.core, ...sections.problems, ...customSections];
+            
+            select.innerHTML = '<option value="">Select a section...</option>';
+            allSections.forEach(section => {
+                const option = document.createElement('option');
+                option.value = section.id;
+                option.textContent = section.title;
+                select.appendChild(option);
+            });
+        }
+        
+        function quickAddEntry() {
+            populateQuickSections();
+            document.getElementById('quickContent').value = '';
+            document.getElementById('quickEntryModal').style.display = 'flex';
+        }
+        
+        function saveQuickEntry() {
+            const sectionId = document.getElementById('quickSection').value;
+            const content = document.getElementById('quickContent').value;
+            
+            if (!sectionId) {
+                alert('Please select a section');
+                return;
             }
             
-            // Save data to localStorage
-            function saveData() {
-                localStorage.setItem('jobHuntCompletedDays', JSON.stringify(completedDays));
-                localStorage.setItem('jobHuntCompletedTasks', JSON.stringify(completedTasks));
-                localStorage.setItem('jobHuntStats', JSON.stringify(stats));
-                localStorage.setItem('jobHuntCurrentDay', currentDay);
+            if (!content.trim()) {
+                alert('Please enter some content');
+                return;
             }
             
-            // Initialize the UI
-            updateUI();
-        });
+            const now = new Date().toISOString();
+            const today = now.split('T')[0];
+            
+            // Get existing content
+            const existingContent = localStorage.getItem(sectionId) || '';
+            const newContent = existingContent + (existingContent ? '\n\n---\n\n' : '') + 
+                              `[${new Date().toLocaleString()}]\n${content}`;
+            
+            // Save
+            localStorage.setItem(sectionId, newContent);
+            localStorage.setItem(`${sectionId}_lastEdited`, now);
+            
+            // Update history
+            const history = JSON.parse(localStorage.getItem(`${sectionId}_history`)) || [];
+            history.unshift({ date: now, content: newContent });
+            if (history.length > 10) history.pop();
+            localStorage.setItem(`${sectionId}_history`, JSON.stringify(history));
+            
+            // Update activity log
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            activityLog[today] = (activityLog[today] || 0) + 1;
+            localStorage.setItem('activityLog', JSON.stringify(activityLog));
+            
+            markDailyGoal('entry');
+            
+            closeModal('quickEntryModal');
+            renderAllSections();
+            updateStats();
+            generateGrowthRings();
+            generateWeeklyCalendar();
+            updateDailyGoals();
+            
+            alert('Entry saved! ✓');
+        }
+        
+        // Search
+        function toggleSearch() {
+            const container = document.getElementById('searchContainer');
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                document.getElementById('searchInput').focus();
+            } else {
+                container.style.display = 'none';
+                document.getElementById('searchResults').innerHTML = '';
+            }
+        }
+        
+        function searchEntries() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+            
+            if (!query.trim()) {
+                resultsDiv.innerHTML = '';
+                return;
+            }
+            
+            const allSections = [...sections.core, ...sections.problems, ...customSections];
+            const results = [];
+            
+            allSections.forEach(section => {
+                const content = localStorage.getItem(section.id);
+                if (content && content.toLowerCase().includes(query)) {
+                    const index = content.toLowerCase().indexOf(query);
+                    const start = Math.max(0, index - 50);
+                    const end = Math.min(content.length, index + 100);
+                    const preview = '...' + content.substring(start, end) + '...';
+                    
+                    results.push({
+                        section: section,
+                        preview: preview
+                    });
+                }
+            });
+            
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: var(--gray); padding: 10px;">No results found</p>';
+                return;
+            }
+            
+            resultsDiv.innerHTML = results.map(result => `
+                <div class="search-result-item" onclick="openEditor('${result.section.id}', '${result.section.title}')">
+                    <div class="search-result-title">
+                        <i class="${result.section.icon}"></i> ${result.section.title}
+                    </div>
+                    <div class="search-result-preview">${result.preview}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Insights
+        function showInsights() {
+            const allSections = [...sections.core, ...sections.problems, ...customSections];
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            
+            // Calculate insights
+            const totalEntries = allSections.reduce((sum, s) => {
+                const history = JSON.parse(localStorage.getItem(`${s.id}_history`)) || [];
+                return sum + history.length;
+            }, 0);
+            
+            const mostActiveSection = allSections.reduce((max, s) => {
+                const history = JSON.parse(localStorage.getItem(`${s.id}_history`)) || [];
+                return history.length > (max.count || 0) ? { section: s, count: history.length } : max;
+            }, {});
+            
+            const dates = Object.keys(activityLog).sort();
+            const firstDate = dates[0] ? new Date(dates[0]) : new Date();
+            const daysSinceStart = Math.floor((new Date() - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+            const avgPerDay = (totalEntries / daysSinceStart).toFixed(1);
+            
+            const activityByDay = {};
+            dates.forEach(date => {
+                const day = new Date(date).getDay();
+                activityByDay[day] = (activityByDay[day] || 0) + activityLog[date];
+            });
+            
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const mostActiveDay = Object.entries(activityByDay).reduce((max, [day, count]) => 
+                count > (max.count || 0) ? { day: dayNames[day], count } : max
+            , {});
+            
+            const insightsHTML = `
+                <div class="insight-card">
+                    <h3><i class="fas fa-fire"></i> Activity Overview</h3>
+                    <p>You've made <span class="insight-stat">${totalEntries}</span> total entries</p>
+                    <p>Average: <strong>${avgPerDay}</strong> entries per day</p>
+                </div>
+                
+                <div class="insight-card">
+                    <h3><i class="fas fa-star"></i> Most Active Section</h3>
+                    <p><i class="${mostActiveSection.section?.icon}"></i> <strong>${mostActiveSection.section?.title || 'None yet'}</strong></p>
+                    <p>with <span class="insight-stat">${mostActiveSection.count || 0}</span> entries</p>
+                </div>
+                
+                <div class="insight-card">
+                    <h3><i class="fas fa-calendar-check"></i> Your Pattern</h3>
+                    <p>Most active on: <strong>${mostActiveDay.day || 'Not enough data'}</strong></p>
+                    <p>with <span class="insight-stat">${mostActiveDay.count || 0}</span> entries</p>
+                </div>
+                
+                <div class="insight-card">
+                    <h3><i class="fas fa-chart-line"></i> Growth Trajectory</h3>
+                    <p>You've been journaling for <span class="insight-stat">${daysSinceStart}</span> days</p>
+                    <p>Keep up the great work! 🌱</p>
+                </div>
+            `;
+            
+            document.getElementById('insightsContent').innerHTML = insightsHTML;
+            document.getElementById('insightsModal').style.display = 'flex';
+        }
+        
+        // Achievements
+        function checkAchievements() {
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            const totalDays = Object.keys(activityLog).length;
+            const allSections = [...sections.core, ...sections.problems, ...customSections];
+            const totalEntries = allSections.reduce((sum, s) => {
+                const history = JSON.parse(localStorage.getItem(`${s.id}_history`)) || [];
+                return sum + history.length;
+            }, 0);
+            
+            const achievements = [];
+            
+            if (totalDays === 1) achievements.push("🎉 First Day! Welcome to your journey!");
+            if (totalDays === 7) achievements.push("🌟 Week Warrior! 7 days of growth!");
+            if (totalDays === 30) achievements.push("🏆 Monthly Master! 30 days strong!");
+            if (totalDays === 100) achievements.push("💎 Century Club! 100 days of dedication!");
+            if (totalEntries === 10) achievements.push("✨ Getting Started! 10 entries completed!");
+            if (totalEntries === 50) achievements.push("🚀 On Fire! 50 entries milestone!");
+            if (totalEntries === 100) achievements.push("🎯 Centurion! 100 entries achieved!");
+            
+            // Check streak
+            const dates = Object.keys(activityLog).sort().reverse();
+            let streak = 0;
+            for (let i = 0; i < dates.length; i++) {
+                const expectedDate = new Date();
+                expectedDate.setDate(expectedDate.getDate() - i);
+                const expectedKey = expectedDate.toISOString().split('T')[0];
+                
+                if (dates.includes(expectedKey)) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            if (streak === 3) achievements.push("🔥 3-Day Streak! You're building momentum!");
+            if (streak === 7) achievements.push("⚡ Week Streak! Unstoppable!");
+            if (streak === 30) achievements.push("💪 30-Day Streak! Legendary consistency!");
+            
+            if (achievements.length > 0) {
+                const lastAchievement = localStorage.getItem('lastAchievement');
+                const latestAchievement = achievements[achievements.length - 1];
+                
+                if (lastAchievement !== latestAchievement) {
+                    document.getElementById('achievementText').textContent = latestAchievement;
+                    document.getElementById('achievementsBanner').style.display = 'block';
+                    localStorage.setItem('lastAchievement', latestAchievement);
+                    
+                    setTimeout(() => {
+                        document.getElementById('achievementsBanner').style.display = 'none';
+                    }, 5000);
+                }
+            }
+        }
+        
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const body = document.body;
+            const isDark = body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            const icon = event.target.closest('.btn-quick').querySelector('i');
+            icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+        
+        // MOOD TRACKER
+        function setMood(mood) {
+            const today = new Date().toISOString().split('T')[0];
+            const moodData = { mood: mood, date: today };
+            localStorage.setItem(`mood_${today}`, JSON.stringify(moodData));
+            
+            // Update all mood history
+            const moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || {};
+            moodHistory[today] = mood;
+            localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+            
+            loadDailyMood();
+            updateWeeklySummary();
+        }
+        
+        function loadDailyMood() {
+            const today = new Date().toISOString().split('T')[0];
+            const moodData = localStorage.getItem(`mood_${today}`);
+            
+            // Remove all selected states
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            if (moodData) {
+                const { mood } = JSON.parse(moodData);
+                const moodEmojis = {
+                    amazing: '😄 Amazing',
+                    good: '🙂 Good',
+                    okay: '😐 Okay',
+                    bad: '😟 Bad',
+                    terrible: '😢 Terrible'
+                };
+                document.getElementById('moodStatus').textContent = `Today: ${moodEmojis[mood]}`;
+                
+                // Highlight selected mood
+                const buttons = document.querySelectorAll('.mood-btn');
+                const moodIndex = ['amazing', 'good', 'okay', 'bad', 'terrible'].indexOf(mood);
+                if (buttons[moodIndex]) {
+                    buttons[moodIndex].classList.add('selected');
+                }
+            } else {
+                document.getElementById('moodStatus').textContent = 'Not set today';
+            }
+        }
+        
+        // HABITS TRACKER
+        function loadHabits() {
+            const habits = JSON.parse(localStorage.getItem('habits')) || [
+                { name: 'Meditate', icon: '🧘', id: 'habit_1' },
+                { name: 'Exercise', icon: '🏃', id: 'habit_2' },
+                { name: 'Read', icon: '📚', id: 'habit_3' }
+            ];
+            
+            const today = new Date().toISOString().split('T')[0];
+            const completedHabits = JSON.parse(localStorage.getItem(`habits_${today}`)) || [];
+            
+            const container = document.getElementById('habitsList');
+            container.innerHTML = habits.map(habit => `
+                <div class="habit-item ${completedHabits.includes(habit.id) ? 'completed' : ''}">
+                    <div class="habit-name">
+                        <span>${habit.icon}</span>
+                        <span>${habit.name}</span>
+                    </div>
+                    <div class="habit-check" onclick="toggleHabit('${habit.id}')">
+                        ${completedHabits.includes(habit.id) ? '✅' : '⭕'}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleHabit(habitId) {
+            const today = new Date().toISOString().split('T')[0];
+            const completedHabits = JSON.parse(localStorage.getItem(`habits_${today}`)) || [];
+            
+            const index = completedHabits.indexOf(habitId);
+            if (index > -1) {
+                completedHabits.splice(index, 1);
+            } else {
+                completedHabits.push(habitId);
+            }
+            
+            localStorage.setItem(`habits_${today}`, JSON.stringify(completedHabits));
+            loadHabits();
+            updateWeeklySummary();
+        }
+        
+        function addHabit() {
+            document.getElementById('habitNameInput').value = '';
+            document.getElementById('habitIconInput').value = '';
+            document.getElementById('addHabitModal').style.display = 'flex';
+        }
+        
+        function saveNewHabit() {
+            const name = document.getElementById('habitNameInput').value.trim();
+            const icon = document.getElementById('habitIconInput').value.trim() || '✓';
+            
+            if (!name) {
+                alert('Please enter a habit name');
+                return;
+            }
+            
+            const habits = JSON.parse(localStorage.getItem('habits')) || [];
+            const newHabit = {
+                name: name,
+                icon: icon,
+                id: 'habit_' + Date.now()
+            };
+            
+            habits.push(newHabit);
+            localStorage.setItem('habits', JSON.stringify(habits));
+            
+            closeModal('addHabitModal');
+            loadHabits();
+        }
+        
+        // WEEKLY SUMMARY
+        function updateWeeklySummary() {
+            const today = new Date();
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            
+            const activityLog = JSON.parse(localStorage.getItem('activityLog')) || {};
+            const moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || {};
+            const habits = JSON.parse(localStorage.getItem('habits')) || [];
+            
+            let weeklyEntries = 0;
+            let moodSum = 0;
+            let moodCount = 0;
+            let habitCompletions = 0;
+            let totalHabitChecks = 0;
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(startOfWeek);
+                date.setDate(startOfWeek.getDate() + i);
+                const dateKey = date.toISOString().split('T')[0];
+                
+                // Count entries
+                if (activityLog[dateKey]) {
+                    weeklyEntries += activityLog[dateKey];
+                }
+                
+                // Average mood
+                if (moodHistory[dateKey]) {
+                    const moodValues = { amazing: 5, good: 4, okay: 3, bad: 2, terrible: 1 };
+                    moodSum += moodValues[moodHistory[dateKey]] || 0;
+                    moodCount++;
+                }
+                
+                // Habit completion rate
+                const completedHabits = JSON.parse(localStorage.getItem(`habits_${dateKey}`)) || [];
+                habitCompletions += completedHabits.length;
+                totalHabitChecks += habits.length;
+            }
+            
+            document.getElementById('weeklyEntries').textContent = weeklyEntries;
+            
+            if (moodCount > 0) {
+                const avgMood = moodSum / moodCount;
+                const moodEmojis = ['😢', '😟', '😐', '🙂', '😄'];
+                document.getElementById('weeklyMood').textContent = moodEmojis[Math.round(avgMood) - 1] || '-';
+            } else {
+                document.getElementById('weeklyMood').textContent = '-';
+            }
+            
+            const habitPercentage = totalHabitChecks > 0 ? 
+                Math.round((habitCompletions / totalHabitChecks) * 100) : 0;
+            document.getElementById('weeklyHabits').textContent = habitPercentage + '%';
+            
+            // Calculate streak
+            const dates = Object.keys(activityLog).sort().reverse();
+            let streak = 0;
+            for (let i = 0; i < dates.length; i++) {
+                const expectedDate = new Date();
+                expectedDate.setDate(expectedDate.getDate() - i);
+                const expectedKey = expectedDate.toISOString().split('T')[0];
+                
+                if (dates.includes(expectedKey)) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            document.getElementById('weeklyStreak').textContent = streak + '🔥';
+        }
+        
+        // TEMPLATES
+        function showTemplates() {
+            document.getElementById('templatesModal').style.display = 'flex';
+        }
+        
+        function useTemplate(type) {
+            const templates = {
+                gratitude: `📝 GRATITUDE JOURNAL - ${new Date().toLocaleDateString()}
+
+Today I am grateful for:
+1. 
+2. 
+3. 
+
+What made me smile today:
+
+One person I appreciate:`,
+                
+                goals: `🎯 DAILY GOALS - ${new Date().toLocaleDateString()}
+
+Top 3 priorities for today:
+1. 
+2. 
+3. 
+
+One thing I will do to grow today:
+
+Evening check-in: Did I achieve my goals?`,
+                
+                reflection: `🌙 EVENING REFLECTION - ${new Date().toLocaleDateString()}
+
+How did today go?
+
+What went well:
+
+What could be improved:
+
+Key learnings:
+
+Tomorrow I will:`,
+                
+                win: `🏆 DAILY WIN - ${new Date().toLocaleDateString()}
+
+My biggest accomplishment today:
+
+How it made me feel:
+
+What I learned from it:
+
+How I'll build on this tomorrow:`,
+                
+                learning: `📚 TODAY I LEARNED - ${new Date().toLocaleDateString()}
+
+New knowledge/skill:
+
+Where I learned it:
+
+How I can apply it:
+
+Next steps:`,
+                
+                custom: `${new Date().toLocaleDateString()}
+
+`
+            };
+            
+            currentSection = 'readEveryday'; // Default section
+            document.getElementById('editor').value = templates[type] || templates.custom;
+            document.getElementById('modalTitle').textContent = 'Quick Entry from Template';
+            closeModal('templatesModal');
+            document.getElementById('editModal').style.display = 'flex';
+        }
+        
+        // REMINDERS
+        function showReminders() {
+            document.getElementById('remindersModal').style.display = 'flex';
+        }
+        
+        function loadReminders() {
+            const reminders = JSON.parse(localStorage.getItem('reminders')) || {
+                morning: false,
+                afternoon: false,
+                evening: false
+            };
+            
+            document.getElementById('morningReminder').checked = reminders.morning;
+            document.getElementById('afternoonReminder').checked = reminders.afternoon;
+            document.getElementById('eveningReminder').checked = reminders.evening;
+        }
+        
+        function saveReminders() {
+            const reminders = {
+                morning: document.getElementById('morningReminder').checked,
+                afternoon: document.getElementById('afternoonReminder').checked,
+                evening: document.getElementById('eveningReminder').checked
+            };
+            
+            localStorage.setItem('reminders', JSON.stringify(reminders));
+        }
+        
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        alert('Notifications enabled! You will receive reminders based on your settings.');
+                        scheduleReminders();
+                    } else {
+                        alert('Notifications blocked. Please enable them in your browser settings.');
+                    }
+                });
+            } else {
+                alert('Your browser does not support notifications.');
+            }
+        }
+        
+        function scheduleReminders() {
+            const reminders = JSON.parse(localStorage.getItem('reminders')) || {};
+            
+            setInterval(() => {
+                const now = new Date();
+                const hour = now.getHours();
+                const minute = now.getMinutes();
+                
+                if (reminders.morning && hour === 8 && minute === 0) {
+                    showNotification('Good morning! Time to journal 🌅');
+                }
+                if (reminders.afternoon && hour === 14 && minute === 0) {
+                    showNotification('Afternoon check-in! How\'s your day going? ☀️');
+                }
+                if (reminders.evening && hour === 20 && minute === 0) {
+                    showNotification('Evening reflection time! 🌙');
+                }
+            }, 60000); // Check every minute
+        }
+        
+        function showNotification(message) {
+            if (Notification.permission === 'granted') {
+                new Notification('New Me Journal', {
+                    body: message,
+                    icon: '🌱'
+                });
+            }
+        }
+        
+        // TAGS
+        function showTags() {
+            loadTags();
+            document.getElementById('tagsModal').style.display = 'flex';
+        }
+        
+        function loadTags() {
+            const tags = JSON.parse(localStorage.getItem('tags')) || ['personal', 'work', 'health', 'ideas'];
+            
+            const container = document.getElementById('tagsList');
+            container.innerHTML = tags.map(tag => `
+                <div class="tag-badge">
+                    <span>${tag}</span>
+                    <span class="tag-remove" onclick="removeTag('${tag}')">×</span>
+                </div>
+            `).join('');
+        }
+        
+        function addTag() {
+            const input = document.getElementById('newTagInput');
+            const tag = input.value.trim().toLowerCase();
+            
+            if (!tag) return;
+            
+            const tags = JSON.parse(localStorage.getItem('tags')) || [];
+            
+            if (tags.includes(tag)) {
+                alert('Tag already exists!');
+                return;
+            }
+            
+            tags.push(tag);
+            localStorage.setItem('tags', JSON.stringify(tags));
+            
+            input.value = '';
+            loadTags();
+        }
+        
+        function removeTag(tag) {
+            const tags = JSON.parse(localStorage.getItem('tags')) || [];
+            const index = tags.indexOf(tag);
+            
+            if (index > -1) {
+                tags.splice(index, 1);
+                localStorage.setItem('tags', JSON.stringify(tags));
+                loadTags();
+            }
+        }
+        
+        // JOB HUNT ATTACK MODE - Inspired by Shwetabh Gangwar
+        function loadAttackMode() {
+            const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {
+                active: false,
+                startDate: null,
+                duration: 30,
+                dailyGoal: 5,
+                targetRole: ''
+            };
+            
+            document.getElementById('attackModeToggle').checked = attackMode.active;
+            
+            if (attackMode.active) {
+                document.getElementById('attackModeContent').style.display = 'block';
+                updateAttackStats();
+                loadTodaysActions();
+                updateAttackMotivation();
+            }
+        }
+        
+        function toggleAttackMode() {
+            const isActive = document.getElementById('attackModeToggle').checked;
+            
+            if (isActive) {
+                const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {};
+                
+                if (!attackMode.startDate) {
+                    // First time activation - show settings
+                    attackModeSettings();
+                } else {
+                    attackMode.active = true;
+                    localStorage.setItem('attackMode', JSON.stringify(attackMode));
+                    document.getElementById('attackModeContent').style.display = 'block';
+                    updateAttackStats();
+                    loadTodaysActions();
+                }
+            } else {
+                const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {};
+                attackMode.active = false;
+                localStorage.setItem('attackMode', JSON.stringify(attackMode));
+                document.getElementById('attackModeContent').style.display = 'none';
+            }
+        }
+        
+        function attackModeSettings() {
+            const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {
+                startDate: new Date().toISOString().split('T')[0],
+                duration: 30,
+                dailyGoal: 5,
+                targetRole: ''
+            };
+            
+            document.getElementById('huntStartDate').value = attackMode.startDate;
+            document.getElementById('huntDuration').value = attackMode.duration;
+            document.getElementById('dailyGoalInput').value = attackMode.dailyGoal;
+            document.getElementById('targetRole').value = attackMode.targetRole;
+            
+            document.getElementById('attackSettingsModal').style.display = 'flex';
+        }
+        
+        function saveAttackSettings() {
+            const attackMode = {
+                active: true,
+                startDate: document.getElementById('huntStartDate').value,
+                duration: parseInt(document.getElementById('huntDuration').value) || 30,
+                dailyGoal: parseInt(document.getElementById('dailyGoalInput').value) || 5,
+                targetRole: document.getElementById('targetRole').value
+            };
+            
+            localStorage.setItem('attackMode', JSON.stringify(attackMode));
+            document.getElementById('attackModeToggle').checked = true;
+            document.getElementById('attackModeContent').style.display = 'block';
+            
+            closeModal('attackSettingsModal');
+            updateAttackStats();
+            loadTodaysActions();
+            
+            alert('⚔️ Attack Mode Activated! Let\'s hunt! 🎯');
+        }
+        
+        function updateAttackStats() {
+            const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {};
+            const applications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+            const interviews = JSON.parse(localStorage.getItem('jobInterviews')) || [];
+            const networking = JSON.parse(localStorage.getItem('networking')) || [];
+            
+            // Calculate days left
+            if (attackMode.startDate && attackMode.duration) {
+                const start = new Date(attackMode.startDate);
+                const end = new Date(start);
+                end.setDate(start.getDate() + attackMode.duration);
+                const today = new Date();
+                const daysLeft = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+                document.getElementById('huntDaysLeft').textContent = Math.max(0, daysLeft);
+            }
+            
+            // Total applications
+            document.getElementById('applicationsCount').textContent = applications.length;
+            
+            // Total interviews
+            document.getElementById('interviewsCount').textContent = interviews.length;
+            
+            // Networking count
+            document.getElementById('networkingCount').textContent = networking.length;
+            
+            // Response rate
+            const responses = applications.filter(app => 
+                app.status !== 'applied' && app.status !== 'rejected'
+            ).length;
+            const responseRate = applications.length > 0 
+                ? Math.round((responses / applications.length) * 100) 
+                : 0;
+            document.getElementById('responseRate').textContent = responseRate + '%';
+            
+            // Daily goal progress
+            const today = new Date().toISOString().split('T')[0];
+            const todaysApplications = applications.filter(app => app.date === today).length;
+            document.getElementById('dailyGoalProgress').textContent = 
+                `${todaysApplications}/${attackMode.dailyGoal || 5}`;
+        }
+        
+        function updateAttackMotivation() {
+            const motivations = [
+                "Every application is a step closer to your goal.",
+                "You're building momentum. Keep going!",
+                "Consistency beats intensity. Apply daily.",
+                "Your dream job is waiting. Go get it!",
+                "Attack mode activated. No excuses, only results.",
+                "The job hunt is a numbers game. Play to win.",
+                "Rejection is redirection. Keep pushing.",
+                "Your effort today = Your success tomorrow.",
+                "Focus on what you can control: Applications.",
+                "Success loves speed. Apply fast, apply often.",
+                "You don't need luck. You need action.",
+                "Every 'no' brings you closer to a 'yes'.",
+                "Stay hungry. Stay focused. Stay consistent.",
+                "The harder you work, the luckier you get.",
+                "Your network is your net worth. Connect daily."
+            ];
+            
+            const today = new Date().getDate();
+            const quote = motivations[today % motivations.length];
+            document.getElementById('attackMotivation').textContent = `"${quote}"`;
+        }
+        
+        function logApplication() {
+            document.getElementById('companyName').value = '';
+            document.getElementById('jobTitle').value = '';
+            document.getElementById('applicationLink').value = '';
+            document.getElementById('applicationStatus').value = 'applied';
+            document.getElementById('applicationNotes').value = '';
+            document.getElementById('logApplicationModal').style.display = 'flex';
+        }
+        
+        function saveApplication() {
+            const company = document.getElementById('companyName').value.trim();
+            const title = document.getElementById('jobTitle').value.trim();
+            
+            if (!company || !title) {
+                alert('Please enter company name and job title');
+                return;
+            }
+            
+            const applications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+            const newApplication = {
+                id: 'app_' + Date.now(),
+                company: company,
+                title: title,
+                link: document.getElementById('applicationLink').value,
+                status: document.getElementById('applicationStatus').value,
+                notes: document.getElementById('applicationNotes').value,
+                date: new Date().toISOString().split('T')[0],
+                timestamp: new Date().toISOString()
+            };
+            
+            applications.push(newApplication);
+            localStorage.setItem('jobApplications', JSON.stringify(applications));
+            
+            closeModal('logApplicationModal');
+            updateAttackStats();
+            loadTodaysActions();
+            checkAchievements();
+            
+            // Celebration for hitting daily goal
+            const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {};
+            const today = new Date().toISOString().split('T')[0];
+            const todaysApps = applications.filter(app => app.date === today).length;
+            
+            if (todaysApps === attackMode.dailyGoal) {
+                alert('🎉 Daily goal achieved! You\'re crushing it! 🔥');
+            }
+        }
+        
+        function logInterview() {
+            document.getElementById('interviewCompany').value = '';
+            document.getElementById('interviewRole').value = '';
+            document.getElementById('interviewDateTime').value = '';
+            document.getElementById('interviewType').value = 'phone';
+            document.getElementById('interviewNotes').value = '';
+            document.getElementById('logInterviewModal').style.display = 'flex';
+        }
+        
+        function saveInterview() {
+            const company = document.getElementById('interviewCompany').value.trim();
+            const role = document.getElementById('interviewRole').value.trim();
+            
+            if (!company || !role) {
+                alert('Please enter company name and role');
+                return;
+            }
+            
+            const interviews = JSON.parse(localStorage.getItem('jobInterviews')) || [];
+            const newInterview = {
+                id: 'int_' + Date.now(),
+                company: company,
+                role: role,
+                datetime: document.getElementById('interviewDateTime').value,
+                type: document.getElementById('interviewType').value,
+                notes: document.getElementById('interviewNotes').value,
+                date: new Date().toISOString().split('T')[0],
+                timestamp: new Date().toISOString()
+            };
+            
+            interviews.push(newInterview);
+            localStorage.setItem('jobInterviews', JSON.stringify(interviews));
+            
+            closeModal('logInterviewModal');
+            updateAttackStats();
+            loadTodaysActions();
+            
+            alert('📞 Interview logged! Good luck! 💪');
+        }
+        
+        function loadTodaysActions() {
+            const today = new Date().toISOString().split('T')[0];
+            const applications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+            const todaysApps = applications.filter(app => app.date === today);
+            
+            const container = document.getElementById('todaysActionsList');
+            
+            if (todaysApps.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.7); text-align: center; padding: 20px;">No applications logged today. Time to attack! 🎯</p>';
+                return;
+            }
+            
+            container.innerHTML = todaysApps.map(app => `
+                <div class="action-item">
+                    <div class="action-item-info">
+                        <div class="action-item-company">${app.company}</div>
+                        <div class="action-item-role">${app.title}</div>
+                    </div>
+                    <div class="action-item-status status-${app.status}">${app.status}</div>
+                </div>
+            `).join('');
+        }
+        
+        function showJobHuntJournal() {
+            const applications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+            const interviews = JSON.parse(localStorage.getItem('jobInterviews')) || [];
+            
+            let journalHTML = '<h3 style="color: var(--primary); margin-bottom: 20px;">📝 Applications Log</h3>';
+            
+            if (applications.length === 0) {
+                journalHTML += '<p style="color: var(--gray);">No applications yet. Start applying!</p>';
+            } else {
+                journalHTML += applications.slice().reverse().map(app => `
+                    <div class="insight-card">
+                        <h4>${app.company} - ${app.title}</h4>
+                        <p style="color: var(--gray); font-size: 0.85rem; margin: 5px 0;">
+                            ${new Date(app.timestamp).toLocaleString()}
+                        </p>
+                        <p style="margin: 10px 0;">
+                            <span class="action-item-status status-${app.status}">${app.status}</span>
+                        </p>
+                        ${app.notes ? `<p style="margin-top: 10px; color: var(--dark);">${app.notes}</p>` : ''}
+                        ${app.link ? `<a href="${app.link}" target="_blank" style="color: var(--primary);">View Application →</a>` : ''}
+                    </div>
+                `).join('');
+            }
+            
+            journalHTML += '<h3 style="color: var(--primary); margin: 30px 0 20px;">📞 Interviews Scheduled</h3>';
+            
+            if (interviews.length === 0) {
+                journalHTML += '<p style="color: var(--gray);">No interviews yet. Keep applying!</p>';
+            } else {
+                journalHTML += interviews.slice().reverse().map(int => `
+                    <div class="insight-card" style="border-left-color: #2196f3;">
+                        <h4>${int.company} - ${int.role}</h4>
+                        <p style="color: var(--gray); font-size: 0.85rem; margin: 5px 0;">
+                            ${int.datetime ? new Date(int.datetime).toLocaleString() : 'TBD'}
+                        </p>
+                        <p style="margin: 10px 0;">
+                            <span class="action-item-status" style="background: #2196f3;">${int.type}</span>
+                        </p>
+                        ${int.notes ? `<p style="margin-top: 10px; color: var(--dark);">${int.notes}</p>` : ''}
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('jobHuntJournalContent').innerHTML = journalHTML;
+            document.getElementById('jobHuntJournalModal').style.display = 'flex';
+        }
+        
+        // NETWORKING TRACKER
+        function showNetworking() {
+            const contacts = JSON.parse(localStorage.getItem('networking')) || [];
+            
+            let html = '';
+            if (contacts.length === 0) {
+                html = '<p style="color: var(--gray); text-align: center; padding: 40px;">No contacts yet. Start building your network!</p>';
+            } else {
+                html = contacts.slice().reverse().map(contact => `
+                    <div class="network-contact-card">
+                        <div class="contact-header">
+                            <div class="contact-name">${contact.name}</div>
+                            <div class="contact-type">${contact.type}</div>
+                        </div>
+                        <div class="contact-details">
+                            <strong>${contact.role}</strong> at ${contact.company}
+                        </div>
+                        ${contact.linkedin ? `<a href="${contact.linkedin}" target="_blank" style="color: var(--primary); font-size: 0.85rem;">LinkedIn Profile →</a><br>` : ''}
+                        ${contact.notes ? `<p style="margin-top: 10px; color: var(--dark); font-size: 0.9rem;">${contact.notes}</p>` : ''}
+                        <p style="color: var(--gray); font-size: 0.75rem; margin-top: 10px;">
+                            Added: ${new Date(contact.timestamp).toLocaleDateString()}
+                        </p>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('networkingContent').innerHTML = html;
+            document.getElementById('networkingModal').style.display = 'flex';
+        }
+        
+        function addNetworkContact() {
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactCompany').value = '';
+            document.getElementById('contactRole').value = '';
+            document.getElementById('contactLinkedIn').value = '';
+            document.getElementById('contactType').value = 'recruiter';
+            document.getElementById('contactNotes').value = '';
+            document.getElementById('addContactModal').style.display = 'flex';
+        }
+        
+        function saveContact() {
+            const name = document.getElementById('contactName').value.trim();
+            const company = document.getElementById('contactCompany').value.trim();
+            
+            if (!name || !company) {
+                alert('Please enter name and company');
+                return;
+            }
+            
+            const contacts = JSON.parse(localStorage.getItem('networking')) || [];
+            const newContact = {
+                id: 'contact_' + Date.now(),
+                name: name,
+                company: company,
+                role: document.getElementById('contactRole').value,
+                linkedin: document.getElementById('contactLinkedIn').value,
+                type: document.getElementById('contactType').value,
+                notes: document.getElementById('contactNotes').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            contacts.push(newContact);
+            localStorage.setItem('networking', JSON.stringify(contacts));
+            
+            closeModal('addContactModal');
+            showNetworking();
+            updateAttackStats();
+            
+            alert('🤝 Contact added to your network!');
+        }
+        
+        // SKILLS TRACKER
+        function showSkillTracker() {
+            const skills = JSON.parse(localStorage.getItem('skillsTracking')) || [];
+            
+            let html = '';
+            if (skills.length === 0) {
+                html = '<p style="color: var(--gray); text-align: center; padding: 40px;">No skills tracked yet. Start learning!</p>';
+            } else {
+                html = skills.slice().reverse().map(skill => {
+                    const levelProgress = {
+                        beginner: 25,
+                        intermediate: 50,
+                        advanced: 75,
+                        expert: 100
+                    };
+                    
+                    return `
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div>
+                                    <span class="skill-name">${skill.name}</span>
+                                    <span class="skill-level level-${skill.level}">${skill.level}</span>
+                                </div>
+                                <span style="color: var(--gray); font-size: 0.85rem;">${skill.category}</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-label">Mastery Level</div>
+                                <div class="skill-progress-bar">
+                                    <div class="skill-progress-fill" style="width: ${levelProgress[skill.level]}%"></div>
+                                </div>
+                            </div>
+                            ${skill.goal ? `<p style="margin-top: 15px; color: var(--dark); font-size: 0.9rem;"><strong>Goal:</strong> ${skill.goal}</p>` : ''}
+                            <p style="color: var(--gray); font-size: 0.75rem; margin-top: 10px;">
+                                Started tracking: ${new Date(skill.timestamp).toLocaleDateString()}
+                            </p>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            document.getElementById('skillsContent').innerHTML = html;
+            document.getElementById('skillsModal').style.display = 'flex';
+        }
+        
+        function addSkill() {
+            document.getElementById('skillName').value = '';
+            document.getElementById('skillCategory').value = 'technical';
+            document.getElementById('skillLevel').value = 'beginner';
+            document.getElementById('skillGoal').value = '';
+            document.getElementById('addSkillModal').style.display = 'flex';
+        }
+        
+        function saveSkill() {
+            const name = document.getElementById('skillName').value.trim();
+            
+            if (!name) {
+                alert('Please enter a skill name');
+                return;
+            }
+            
+            const skills = JSON.parse(localStorage.getItem('skillsTracking')) || [];
+            const newSkill = {
+                id: 'skill_' + Date.now(),
+                name: name,
+                category: document.getElementById('skillCategory').value,
+                level: document.getElementById('skillLevel').value,
+                goal: document.getElementById('skillGoal').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            skills.push(newSkill);
+            localStorage.setItem('skillsTracking', JSON.stringify(skills));
+            
+            closeModal('addSkillModal');
+            showSkillTracker();
+            
+            alert('🧠 Skill added to tracking!');
+        }
+        
+        // COMPANY RESEARCH
+        function showCompanyResearch() {
+            const research = JSON.parse(localStorage.getItem('companyResearch')) || [];
+            
+            let html = '';
+            if (research.length === 0) {
+                html = '<p style="color: var(--gray); text-align: center; padding: 40px;">No research yet. Start researching companies!</p>';
+            } else {
+                html = research.slice().reverse().map(company => `
+                    <div class="research-card">
+                        <div class="research-company-name">${company.name}</div>
+                        
+                        ${company.industry ? `
+                            <div class="research-section">
+                                <div class="research-section-title">🏭 Industry</div>
+                                <div class="research-section-content">${company.industry}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${company.size ? `
+                            <div class="research-section">
+                                <div class="research-section-title">👥 Company Size</div>
+                                <div class="research-section-content">${company.size}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${company.culture ? `
+                            <div class="research-section">
+                                <div class="research-section-title">🎯 Culture & Values</div>
+                                <div class="research-section-content">${company.culture}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${company.products ? `
+                            <div class="research-section">
+                                <div class="research-section-title">📦 Products & Services</div>
+                                <div class="research-section-content">${company.products}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${company.news ? `
+                            <div class="research-section">
+                                <div class="research-section-title">📰 Recent News</div>
+                                <div class="research-section-content">${company.news}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${company.whyInterested ? `
+                            <div class="research-section">
+                                <div class="research-section-title">💡 Why Interested</div>
+                                <div class="research-section-content">${company.whyInterested}</div>
+                            </div>
+                        ` : ''}
+                        
+                        <p style="color: var(--gray); font-size: 0.75rem; margin-top: 15px;">
+                            Researched: ${new Date(company.timestamp).toLocaleDateString()}
+                        </p>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('companyResearchContent').innerHTML = html;
+            document.getElementById('companyResearchModal').style.display = 'flex';
+        }
+        
+        function addCompanyResearch() {
+            document.getElementById('researchCompany').value = '';
+            document.getElementById('researchIndustry').value = '';
+            document.getElementById('researchSize').value = '';
+            document.getElementById('researchCulture').value = '';
+            document.getElementById('researchProducts').value = '';
+            document.getElementById('researchNews').value = '';
+            document.getElementById('researchWhyInterested').value = '';
+            document.getElementById('addResearchModal').style.display = 'flex';
+        }
+        
+        function saveResearch() {
+            const name = document.getElementById('researchCompany').value.trim();
+            
+            if (!name) {
+                alert('Please enter company name');
+                return;
+            }
+            
+            const research = JSON.parse(localStorage.getItem('companyResearch')) || [];
+            const newResearch = {
+                id: 'research_' + Date.now(),
+                name: name,
+                industry: document.getElementById('researchIndustry').value,
+                size: document.getElementById('researchSize').value,
+                culture: document.getElementById('researchCulture').value,
+                products: document.getElementById('researchProducts').value,
+                news: document.getElementById('researchNews').value,
+                whyInterested: document.getElementById('researchWhyInterested').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            research.push(newResearch);
+            localStorage.setItem('companyResearch', JSON.stringify(research));
+            
+            closeModal('addResearchModal');
+            showCompanyResearch();
+            
+            alert('🏢 Company research saved!');
+        }
+        
+        // ANALYTICS
+        function showAnalytics() {
+            const applications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+            const interviews = JSON.parse(localStorage.getItem('jobInterviews')) || [];
+            const attackMode = JSON.parse(localStorage.getItem('attackMode')) || {};
+            
+            // Calculate stats
+            const totalApps = applications.length;
+            const totalInterviews = interviews.length;
+            const conversionRate = totalApps > 0 ? ((totalInterviews / totalApps) * 100).toFixed(1) : 0;
+            
+            const statusCounts = applications.reduce((acc, app) => {
+                acc[app.status] = (acc[app.status] || 0) + 1;
+                return acc;
+            }, {});
+            
+            const offers = statusCounts['offer'] || 0;
+            const rejected = statusCounts['rejected'] || 0;
+            const pending = totalApps - offers - rejected;
+            
+            // Average applications per day
+            if (attackMode.startDate) {
+                const start = new Date(attackMode.startDate);
+                const today = new Date();
+                const daysPassed = Math.ceil((today - start) / (1000 * 60 * 60 * 24)) + 1;
+                var avgPerDay = (totalApps / daysPassed).toFixed(1);
+            } else {
+                var avgPerDay = 0;
+            }
+            
+            const analyticsHTML = `
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="analytics-title">Total Applications</div>
+                        <div class="analytics-value">${totalApps}</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-title">Interview Rate</div>
+                        <div class="analytics-value">${conversionRate}%</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-title">Offers Received</div>
+                        <div class="analytics-value" style="color: #4caf50;">${offers}</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-title">Avg/Day</div>
+                        <div class="analytics-value">${avgPerDay}</div>
+                    </div>
+                </div>
+                
+                <div class="analytics-chart">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Application Status Breakdown</h3>
+                    <div class="chart-bar">
+                        <div class="chart-label">Applied</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar-fill" style="width: ${totalApps > 0 ? ((statusCounts['applied'] || 0) / totalApps * 100) : 0}%">
+                                ${statusCounts['applied'] || 0}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Under Review</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar-fill" style="width: ${totalApps > 0 ? ((statusCounts['screening'] || 0) / totalApps * 100) : 0}%">
+                                ${statusCounts['screening'] || 0}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Interview</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar-fill" style="width: ${totalApps > 0 ? ((statusCounts['interview'] || 0) / totalApps * 100) : 0}%; background: linear-gradient(to right, #2196f3, #4caf50);">
+                                ${statusCounts['interview'] || 0}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Offers</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar-fill" style="width: ${totalApps > 0 ? (offers / totalApps * 100) : 0}%; background: linear-gradient(to right, #4caf50, #8bc34a);">
+                                ${offers}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="chart-label">Rejected</div>
+                        <div class="chart-bar-bg">
+                            <div class="chart-bar-fill" style="width: ${totalApps > 0 ? (rejected / totalApps * 100) : 0}%; background: linear-gradient(to right, #666, #999);">
+                                ${rejected}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-card" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white;">
+                    <h3 style="color: white; margin-bottom: 15px;">📊 Key Insights</h3>
+                    <p style="margin-bottom: 10px;">
+                        ✅ You have <strong>${pending}</strong> applications still in progress
+                    </p>
+                    <p style="margin-bottom: 10px;">
+                        📈 Your interview conversion rate is <strong>${conversionRate}%</strong>
+                        ${conversionRate > 10 ? ' - Great job!' : conversionRate > 5 ? ' - Keep going!' : ' - Increase applications!'}
+                    </p>
+                    <p>
+                        🎯 ${avgPerDay >= (attackMode.dailyGoal || 5) ? 
+                            `You're exceeding your daily goal of ${attackMode.dailyGoal}! 🔥` : 
+                            `Focus on reaching your daily goal of ${attackMode.dailyGoal} applications`}
+                    </p>
+                </div>
+            `;
+            
+            document.getElementById('analyticsContent').innerHTML = analyticsHTML;
+            document.getElementById('analyticsModal').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
-
